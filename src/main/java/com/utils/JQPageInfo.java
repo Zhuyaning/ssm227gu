@@ -1,54 +1,54 @@
 package com.utils;
 
-public class JQPageInfo{
-	private Integer page;
-	
-	private Integer limit;
-	
-	private String sidx;
-	
-	private String order;
-	
-	private  Integer offset;
+public class JQPageInfo {
+    private Integer page;
 
-	public Integer getPage() {
-		return page;
-	}
+    private Integer limit;
 
-	public void setPage(Integer page) {
-		this.page = page;
-	}
+    private String sidx;
 
-	public Integer getLimit() {
-		return limit;
-	}
+    private String order;
 
-	public void setLimit(Integer limit) {
-		this.limit = limit;
-	}
+    private Integer offset;
 
-	public String getSidx() {
-		return sidx;
-	}
+    public Integer getPage() {
+        return page;
+    }
 
-	public void setSidx(String sidx) {
-		this.sidx = sidx;
-	}
-	
-	public String getOrder() {
-		return order;
-	}
+    public void setPage(Integer page) {
+        this.page = page;
+    }
 
-	public void setOrder(String order) {
-		this.order = order;
-	}
+    public Integer getLimit() {
+        return limit;
+    }
 
-	public Integer getOffset() {
-		return offset;
-	}
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
 
-	public void setOffset(Integer offset) {
-		this.offset = offset;
-	}
-	
+    public String getSidx() {
+        return sidx;
+    }
+
+    public void setSidx(String sidx) {
+        this.sidx = sidx;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    public Integer getOffset() {
+        return offset;
+    }
+
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
+
 }

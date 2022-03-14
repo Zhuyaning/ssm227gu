@@ -22,8 +22,8 @@ import java.util.Map;
 /**
  * 收藏表
  * 后端接口
- *
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/storeup")
 public class StoreupController {
@@ -41,7 +41,7 @@ public class StoreupController {
             storeup.setUserid((Long) request.getSession().getAttribute("userId"));
         }
 
-        EntityWrapper<StoreupEntity> ew = new EntityWrapper<StoreupEntity>();
+        EntityWrapper<StoreupEntity> ew = new EntityWrapper<>();
         PageUtils page = storeupService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, storeup), params), params));
         return R.ok().put("data", page);
     }
@@ -56,7 +56,7 @@ public class StoreupController {
             storeup.setUserid((Long) request.getSession().getAttribute("userId"));
         }
 
-        EntityWrapper<StoreupEntity> ew = new EntityWrapper<StoreupEntity>();
+        EntityWrapper<StoreupEntity> ew = new EntityWrapper<>();
         PageUtils page = storeupService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, storeup), params), params));
         return R.ok().put("data", page);
     }
@@ -66,7 +66,7 @@ public class StoreupController {
      */
     @RequestMapping("/lists")
     public R list(StoreupEntity storeup) {
-        EntityWrapper<StoreupEntity> ew = new EntityWrapper<StoreupEntity>();
+        EntityWrapper<StoreupEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(storeup, "storeup"));
         return R.ok().put("data", storeupService.selectListView(ew));
     }
@@ -76,7 +76,7 @@ public class StoreupController {
      */
     @RequestMapping("/query")
     public R query(StoreupEntity storeup) {
-        EntityWrapper<StoreupEntity> ew = new EntityWrapper<StoreupEntity>();
+        EntityWrapper<StoreupEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(storeup, "storeup"));
         StoreupView storeupView = storeupService.selectView(ew);
         return R.ok("查询收藏表成功").put("data", storeupView);
@@ -131,7 +131,7 @@ public class StoreupController {
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody StoreupEntity storeup, HttpServletRequest request) {
+    public R update(@RequestBody StoreupEntity storeup) {
         //ValidatorUtils.validateEntity(storeup);
         storeupService.updateById(storeup);//全部更新
         return R.ok();
@@ -162,14 +162,14 @@ public class StoreupController {
             Date remindStartDate = null;
             Date remindEndDate = null;
             if (map.get("remindstart") != null) {
-                Integer remindStart = Integer.parseInt(map.get("remindstart").toString());
+                int remindStart = Integer.parseInt(map.get("remindstart").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindStart);
                 remindStartDate = c.getTime();
                 map.put("remindstart", sdf.format(remindStartDate));
             }
             if (map.get("remindend") != null) {
-                Integer remindEnd = Integer.parseInt(map.get("remindend").toString());
+                int remindEnd = Integer.parseInt(map.get("remindend").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindEnd);
                 remindEndDate = c.getTime();
@@ -177,7 +177,7 @@ public class StoreupController {
             }
         }
 
-        Wrapper<StoreupEntity> wrapper = new EntityWrapper<StoreupEntity>();
+        Wrapper<StoreupEntity> wrapper = new EntityWrapper<>();
         if (map.get("remindstart") != null) {
             wrapper.ge(columnName, map.get("remindstart"));
         }
@@ -185,7 +185,7 @@ public class StoreupController {
             wrapper.le(columnName, map.get("remindend"));
         }
         if (!request.getSession().getAttribute("role").toString().equals("管理员")) {
-            wrapper.eq("userid", (Long) request.getSession().getAttribute("userId"));
+            wrapper.eq("userid", request.getSession().getAttribute("userId"));
         }
 
 

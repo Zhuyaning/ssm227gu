@@ -1,10 +1,9 @@
 package com.config;
 
-import java.util.Date;
-
+import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 
-import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
+import java.util.Date;
 
 /**
  * 自定义填充处理器

@@ -1,55 +1,60 @@
 package com.utils;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONObject;
-
 
 /**
-* 类说明 : 
-*/
+ * 类说明 :
+ */
 
 public class BaiduUtil {
-	
+
+    private BaiduUtil() {
+    }
+
     /**
      * 根据经纬度获得省市区信息
-     * @param lon 纬度
+     *
+     * @param lng 纬度
      * @param lat 经度
-     * @param coordtype 经纬度坐标系
-     * @return
+     * @return 地理位置
      */
     public static Map<String, String> getCityByLonLat(String key, String lng, String lat) {
         String location = lat + "," + lng;
         try {
             //拼装url
-            String url = "http://api.map.baidu.com/reverse_geocoding/v3/?ak="+key+"&output=json&coordtype=wgs84ll&location="+location;
+            String url = "http://api.map.baidu.com/reverse_geocoding/v3/?ak=" + key + "&output=json&coordtype=wgs84ll&location=" + location;
             String result = HttpClientUtils.doGet(url);
             JSONObject o = new JSONObject(result);
             Map<String, String> area = new HashMap<>();
-			area.put("province", o.getJSONObject("result").getJSONObject("addressComponent").getString("province"));
-			area.put("city", o.getJSONObject("result").getJSONObject("addressComponent").getString("city"));
-			area.put("district", o.getJSONObject("result").getJSONObject("addressComponent").getString("district"));
-			area.put("street", o.getJSONObject("result").getJSONObject("addressComponent").getString("street"));
+            area.put("province", o.getJSONObject("result").getJSONObject("addressComponent").getString("province"));
+            area.put("city", o.getJSONObject("result").getJSONObject("addressComponent").getString("city"));
+            area.put("district", o.getJSONObject("result").getJSONObject("addressComponent").getString("district"));
+            area.put("street", o.getJSONObject("result").getJSONObject("addressComponent").getString("street"));
             return area;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return Collections.emptyMap();
     }
 
     /**
-	     * 获取API访问token
-	     * 该token有一定的有效期，需要自行管理，当失效时需重新获取.
-	     * @param ak - 百度云官网获取的 API Key
-	     * @param sk - 百度云官网获取的 Securet Key
-	     * @return assess_token
-	     */
+     * 获取API访问token
+     * 该token有一定的有效期，需要自行管理，当失效时需重新获取.
+     *
+     * @param ak - 百度云官网获取的 API Key
+     * @param sk - 百度云官网获取的 Securet Key
+     * @return assess_token
+     */
     public static String getAuth(String ak, String sk) {
         // 获取token地址
         String authHost = "https://aip.baidubce.com/oauth/2.0/token?";

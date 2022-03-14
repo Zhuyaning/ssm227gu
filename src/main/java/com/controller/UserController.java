@@ -22,6 +22,7 @@ import java.util.Map;
  */
 @RequestMapping("users")
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Autowired

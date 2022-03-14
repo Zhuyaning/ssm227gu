@@ -27,6 +27,7 @@ import java.util.*;
  * @date 2021-04-21 18:51:06
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/shangpinxinxi")
 public class ShangpinxinxiController {
     @Autowired

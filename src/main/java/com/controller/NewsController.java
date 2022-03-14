@@ -25,6 +25,7 @@ import java.util.Map;
  * 后端接口
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/news")
 public class NewsController {
     @Autowired

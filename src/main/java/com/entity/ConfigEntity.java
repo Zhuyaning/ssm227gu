@@ -1,53 +1,53 @@
 package com.entity;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 
+import java.io.Serializable;
+
 /**
-* 类说明 : 
-*/
+ * 类说明 :
+ */
 @TableName("config")
-public class ConfigEntity implements Serializable{
-private static final long serialVersionUID = 1L;
-	
-	@TableId(type = IdType.AUTO)
-	private Long id;
-	
-	/**
-	 * key
-	 */
-	private String name;
-	
-	/**
-	 * value
-	 */
-	private String value;
+public class ConfigEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	public Long getId() {
-		return id;
-	}
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * key
+     */
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * value
+     */
+    private String value;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
 }

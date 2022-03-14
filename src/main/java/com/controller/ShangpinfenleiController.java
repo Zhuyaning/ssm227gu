@@ -24,6 +24,7 @@ import java.util.Map;
  * 后端接口
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/shangpinfenlei")
 public class ShangpinfenleiController {
     @Autowired

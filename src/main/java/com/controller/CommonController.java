@@ -28,6 +28,7 @@ import java.util.*;
  * 通用接口
  */
 @RestController
+@CrossOrigin
 public class CommonController {
     @Autowired
     private CommonService commonService;
