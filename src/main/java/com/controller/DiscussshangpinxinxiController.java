@@ -24,9 +24,6 @@ import java.util.Map;
  * 商品信息评论表
  * 后端接口
  *
- * @author
- * @email
- * @date 2021-04-21 18:51:07
  */
 @RestController
 @CrossOrigin
