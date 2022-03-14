@@ -13,10 +13,7 @@ import com.entity.view.AddressView;
 
 /**
  * 地址
- * 
- * @author 
- * @email 
- * @date 2021-04-21 18:51:06
+ *
  */
 public interface AddressDao extends BaseMapper<AddressEntity> {
 	

@@ -221,7 +221,7 @@ public class AddressController {
 			}
 		}
 		
-		Wrapper<AddressEntity> wrapper = new EntityWrapper<AddressEntity>();
+		Wrapper<AddressEntity> wrapper = new EntityWrapper<>();
 		if(map.get("remindstart")!=null) {
 			wrapper.ge(columnName, map.get("remindstart"));
 		}
@@ -229,7 +229,7 @@ public class AddressController {
 			wrapper.le(columnName, map.get("remindend"));
 		}
 		if(!request.getSession().getAttribute("role").toString().equals("管理员")) {
-    		wrapper.eq("userid", (Long)request.getSession().getAttribute("userId"));
+    		wrapper.eq("userid", request.getSession().getAttribute("userId"));
     	}
 
 

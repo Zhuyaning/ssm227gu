@@ -36,7 +36,7 @@ public class ConfigController{
      */
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,ConfigEntity config){
-        EntityWrapper<ConfigEntity> ew = new EntityWrapper<ConfigEntity>();
+        EntityWrapper<ConfigEntity> ew = new EntityWrapper<>();
     	PageUtils page = configService.queryPage(params);
         return R.ok().put("data", page);
     }
@@ -47,7 +47,7 @@ public class ConfigController{
     @IgnoreAuth
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,ConfigEntity config){
-        EntityWrapper<ConfigEntity> ew = new EntityWrapper<ConfigEntity>();
+        EntityWrapper<ConfigEntity> ew = new EntityWrapper<>();
     	PageUtils page = configService.queryPage(params);
         return R.ok().put("data", page);
     }

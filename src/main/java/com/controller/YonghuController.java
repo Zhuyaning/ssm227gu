@@ -107,7 +107,7 @@ public class YonghuController {
      */
     @IgnoreAuth
 	@RequestMapping(value = "/resetPass")
-    public R resetPass(String username, HttpServletRequest request){
+    public R resetPass(String username){
     	YonghuEntity user = yonghuService.selectOne(new EntityWrapper<YonghuEntity>().eq("yonghuzhanghao", username));
     	if(user==null) {
     		return R.error("账号不存在");
