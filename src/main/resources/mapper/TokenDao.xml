@@ -4,10 +4,10 @@
 <mapper namespace="com.dao.TokenDao">
 
     <select id="selectListView"
-		resultType="com.entity.TokenEntity" >
+            resultType="com.entity.TokenEntity">
 
-		SELECT  t.* FROM token  t 	        
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
+        SELECT t.* FROM token t
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
 </mapper>

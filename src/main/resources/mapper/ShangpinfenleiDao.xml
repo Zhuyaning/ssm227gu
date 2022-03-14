@@ -3,34 +3,35 @@
 
 <mapper namespace="com.dao.ShangpinfenleiDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.entity.ShangpinfenleiEntity" id="shangpinfenleiMap">
         <result property="shangpinfenlei" column="shangpinfenlei"/>
     </resultMap>
 
-	<select id="selectListVO"
-		resultType="com.entity.vo.ShangpinfenleiVO" >
-		SELECT * FROM shangpinfenlei  shangpinfenlei         
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectVO"
-		resultType="com.entity.vo.ShangpinfenleiVO" >
-		SELECT  shangpinfenlei.* FROM shangpinfenlei  shangpinfenlei
- 		<where> 1=1 ${ew.sqlSegment}</where>
-	</select>
+    <select id="selectListVO"
+            resultType="com.entity.vo.ShangpinfenleiVO">
+        SELECT * FROM shangpinfenlei shangpinfenlei
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.ShangpinfenleiVO">
+        SELECT shangpinfenlei.* FROM shangpinfenlei shangpinfenlei
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
 
     <select id="selectListView"
-		resultType="com.entity.view.ShangpinfenleiView" >
+            resultType="com.entity.view.ShangpinfenleiView">
 
-		SELECT  shangpinfenlei.* FROM shangpinfenlei  shangpinfenlei 	        
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectView"
-		resultType="com.entity.view.ShangpinfenleiView" >
-		SELECT * FROM shangpinfenlei  shangpinfenlei <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	
+        SELECT shangpinfenlei.* FROM shangpinfenlei shangpinfenlei
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.ShangpinfenleiView">
+        SELECT * FROM shangpinfenlei shangpinfenlei
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+
 </mapper>

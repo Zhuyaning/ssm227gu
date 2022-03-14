@@ -3,7 +3,7 @@
 
 <mapper namespace="com.dao.OrdersDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.entity.OrdersEntity" id="ordersMap">
         <result property="orderid" column="orderid"/>
         <result property="tablename" column="tablename"/>
@@ -23,29 +23,30 @@
         <result property="consignee" column="consignee"/>
     </resultMap>
 
-	<select id="selectListVO"
-		resultType="com.entity.vo.OrdersVO" >
-		SELECT * FROM orders  orders         
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectVO"
-		resultType="com.entity.vo.OrdersVO" >
-		SELECT  orders.* FROM orders  orders
- 		<where> 1=1 ${ew.sqlSegment}</where>
-	</select>
+    <select id="selectListVO"
+            resultType="com.entity.vo.OrdersVO">
+        SELECT * FROM orders orders
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.OrdersVO">
+        SELECT orders.* FROM orders orders
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
 
     <select id="selectListView"
-		resultType="com.entity.view.OrdersView" >
+            resultType="com.entity.view.OrdersView">
 
-		SELECT  orders.* FROM orders  orders 	        
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectView"
-		resultType="com.entity.view.OrdersView" >
-		SELECT * FROM orders  orders <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	
+        SELECT orders.* FROM orders orders
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.OrdersView">
+        SELECT * FROM orders orders
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+
 </mapper>

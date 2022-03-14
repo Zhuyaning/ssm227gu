@@ -3,7 +3,7 @@
 
 <mapper namespace="com.dao.CartDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.entity.CartEntity" id="cartMap">
         <result property="tablename" column="tablename"/>
         <result property="userid" column="userid"/>
@@ -15,29 +15,30 @@
         <result property="discountprice" column="discountprice"/>
     </resultMap>
 
-	<select id="selectListVO"
-		resultType="com.entity.vo.CartVO" >
-		SELECT * FROM cart  cart         
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectVO"
-		resultType="com.entity.vo.CartVO" >
-		SELECT  cart.* FROM cart  cart
- 		<where> 1=1 ${ew.sqlSegment}</where>
-	</select>
+    <select id="selectListVO"
+            resultType="com.entity.vo.CartVO">
+        SELECT * FROM cart cart
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.CartVO">
+        SELECT cart.* FROM cart cart
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
 
     <select id="selectListView"
-		resultType="com.entity.view.CartView" >
+            resultType="com.entity.view.CartView">
 
-		SELECT  cart.* FROM cart  cart 	        
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectView"
-		resultType="com.entity.view.CartView" >
-		SELECT * FROM cart  cart <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	
+        SELECT cart.* FROM cart cart
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.CartView">
+        SELECT * FROM cart cart
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+
 </mapper>

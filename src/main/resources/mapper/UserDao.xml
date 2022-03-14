@@ -4,10 +4,10 @@
 <mapper namespace="com.dao.UserDao">
 
     <select id="selectListView"
-		resultType="com.entity.UserEntity" >
+            resultType="com.entity.UserEntity">
 
-		SELECT  u.* FROM users  u 	        
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
+        SELECT u.* FROM users u
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
 </mapper>

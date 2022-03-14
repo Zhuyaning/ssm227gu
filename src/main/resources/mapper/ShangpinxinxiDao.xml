@@ -3,7 +3,7 @@
 
 <mapper namespace="com.dao.ShangpinxinxiDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.entity.ShangpinxinxiEntity" id="shangpinxinxiMap">
         <result property="shangpinbianhao" column="shangpinbianhao"/>
         <result property="shangpinmingcheng" column="shangpinmingcheng"/>
@@ -19,29 +19,30 @@
         <result property="alllimittimes" column="alllimittimes"/>
     </resultMap>
 
-	<select id="selectListVO"
-		resultType="com.entity.vo.ShangpinxinxiVO" >
-		SELECT * FROM shangpinxinxi  shangpinxinxi         
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectVO"
-		resultType="com.entity.vo.ShangpinxinxiVO" >
-		SELECT  shangpinxinxi.* FROM shangpinxinxi  shangpinxinxi
- 		<where> 1=1 ${ew.sqlSegment}</where>
-	</select>
+    <select id="selectListVO"
+            resultType="com.entity.vo.ShangpinxinxiVO">
+        SELECT * FROM shangpinxinxi shangpinxinxi
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.ShangpinxinxiVO">
+        SELECT shangpinxinxi.* FROM shangpinxinxi shangpinxinxi
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
 
     <select id="selectListView"
-		resultType="com.entity.view.ShangpinxinxiView" >
+            resultType="com.entity.view.ShangpinxinxiView">
 
-		SELECT  shangpinxinxi.* FROM shangpinxinxi  shangpinxinxi 	        
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectView"
-		resultType="com.entity.view.ShangpinxinxiView" >
-		SELECT * FROM shangpinxinxi  shangpinxinxi <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	
+        SELECT shangpinxinxi.* FROM shangpinxinxi shangpinxinxi
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.ShangpinxinxiView">
+        SELECT * FROM shangpinxinxi shangpinxinxi
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+
 </mapper>

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.dao.DiscussshangpinxinxiDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.entity.DiscussshangpinxinxiEntity" id="discussshangpinxinxiMap">
         <result property="refid" column="refid"/>
         <result property="userid" column="userid"/>
@@ -12,29 +12,30 @@
         <result property="reply" column="reply"/>
     </resultMap>
 
-	<select id="selectListVO"
-		resultType="com.entity.vo.DiscussshangpinxinxiVO" >
-		SELECT * FROM discussshangpinxinxi  discussshangpinxinxi         
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectVO"
-		resultType="com.entity.vo.DiscussshangpinxinxiVO" >
-		SELECT  discussshangpinxinxi.* FROM discussshangpinxinxi  discussshangpinxinxi
- 		<where> 1=1 ${ew.sqlSegment}</where>
-	</select>
+    <select id="selectListVO"
+            resultType="com.entity.vo.DiscussshangpinxinxiVO">
+        SELECT * FROM discussshangpinxinxi discussshangpinxinxi
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.DiscussshangpinxinxiVO">
+        SELECT discussshangpinxinxi.* FROM discussshangpinxinxi discussshangpinxinxi
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
 
     <select id="selectListView"
-		resultType="com.entity.view.DiscussshangpinxinxiView" >
+            resultType="com.entity.view.DiscussshangpinxinxiView">
 
-		SELECT  discussshangpinxinxi.* FROM discussshangpinxinxi  discussshangpinxinxi 	        
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectView"
-		resultType="com.entity.view.DiscussshangpinxinxiView" >
-		SELECT * FROM discussshangpinxinxi  discussshangpinxinxi <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	
+        SELECT discussshangpinxinxi.* FROM discussshangpinxinxi discussshangpinxinxi
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.DiscussshangpinxinxiView">
+        SELECT * FROM discussshangpinxinxi discussshangpinxinxi
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+
 </mapper>

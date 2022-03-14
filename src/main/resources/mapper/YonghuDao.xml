@@ -3,7 +3,7 @@
 
 <mapper namespace="com.dao.YonghuDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.entity.YonghuEntity" id="yonghuMap">
         <result property="yonghuzhanghao" column="yonghuzhanghao"/>
         <result property="yonghuxingming" column="yonghuxingming"/>
@@ -14,29 +14,30 @@
         <result property="money" column="money"/>
     </resultMap>
 
-	<select id="selectListVO"
-		resultType="com.entity.vo.YonghuVO" >
-		SELECT * FROM yonghu  yonghu         
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectVO"
-		resultType="com.entity.vo.YonghuVO" >
-		SELECT  yonghu.* FROM yonghu  yonghu
- 		<where> 1=1 ${ew.sqlSegment}</where>
-	</select>
+    <select id="selectListVO"
+            resultType="com.entity.vo.YonghuVO">
+        SELECT * FROM yonghu yonghu
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.YonghuVO">
+        SELECT yonghu.* FROM yonghu yonghu
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
 
     <select id="selectListView"
-		resultType="com.entity.view.YonghuView" >
+            resultType="com.entity.view.YonghuView">
 
-		SELECT  yonghu.* FROM yonghu  yonghu 	        
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectView"
-		resultType="com.entity.view.YonghuView" >
-		SELECT * FROM yonghu  yonghu <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	
+        SELECT yonghu.* FROM yonghu yonghu
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.YonghuView">
+        SELECT * FROM yonghu yonghu
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+
 </mapper>

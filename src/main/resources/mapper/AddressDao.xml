@@ -3,7 +3,7 @@
 
 <mapper namespace="com.dao.AddressDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.entity.AddressEntity" id="addressMap">
         <result property="userid" column="userid"/>
         <result property="address" column="address"/>
@@ -12,29 +12,30 @@
         <result property="isdefault" column="isdefault"/>
     </resultMap>
 
-	<select id="selectListVO"
-		resultType="com.entity.vo.AddressVO" >
-		SELECT * FROM address  address         
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectVO"
-		resultType="com.entity.vo.AddressVO" >
-		SELECT  address.* FROM address  address
- 		<where> 1=1 ${ew.sqlSegment}</where>
-	</select>
+    <select id="selectListVO"
+            resultType="com.entity.vo.AddressVO">
+        SELECT * FROM address address
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectVO"
+            resultType="com.entity.vo.AddressVO">
+        SELECT address.* FROM address address
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
 
     <select id="selectListView"
-		resultType="com.entity.view.AddressView" >
+            resultType="com.entity.view.AddressView">
 
-		SELECT  address.* FROM address  address 	        
-        <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	<select id="selectView"
-		resultType="com.entity.view.AddressView" >
-		SELECT * FROM address  address <where> 1=1 ${ew.sqlSegment}</where>
-	</select>
-	
-	
+        SELECT address.* FROM address address
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView"
+            resultType="com.entity.view.AddressView">
+        SELECT * FROM address address
+        <where>1=1 ${ew.sqlSegment}</where>
+    </select>
+
+
 </mapper>
