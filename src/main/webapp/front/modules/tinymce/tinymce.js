@@ -1,7 +1,7 @@
 //  菜单显示异常修改tinymce/skins/ui/oxide/skin.min.css:96 .tox-silver-sink的z-index值
 //  http://tinymce.ax-z.cn/   中文文档
 
-layui.define(['jquery'],function (exports) {
+layui.define(['jquery'], function (exports) {
     var $ = layui.$
 
     var modFile = layui.cache.modules['tinymce'];
@@ -40,7 +40,7 @@ layui.define(['jquery'],function (exports) {
     var t = {};
 
     //初始化
-    t.render = function (option,callback) {
+    t.render = function (option, callback) {
 
         var admin = layui.admin || {}
 
@@ -68,7 +68,7 @@ layui.define(['jquery'],function (exports) {
 
         option.images_upload_url = option.images_upload_url ? option.images_upload_url : settings.images_upload_url;
 
-        option.images_upload_handler = option.images_upload_handler? option.images_upload_handler : function (blobInfo, succFun, failFun) {
+        option.images_upload_handler = option.images_upload_handler ? option.images_upload_handler : function (blobInfo, succFun, failFun) {
 
             var formData = new FormData();
 
@@ -122,7 +122,7 @@ layui.define(['jquery'],function (exports) {
             },
             table: {title: '表格', items: 'inserttable tableprops deletetable | cell row column'},
         };
-        if(typeof tinymce == 'undefined'){
+        if (typeof tinymce == 'undefined') {
 
             $.ajax({//获取插件
                 url: option.base_url + '/tinymce.js',
@@ -136,17 +136,17 @@ layui.define(['jquery'],function (exports) {
 
         }
 
-        layui.sessionData('layui-tinymce',{
+        layui.sessionData('layui-tinymce', {
 
-            key:option.selector,
+            key: option.selector,
 
-            value:option
+            value: option
 
         })
 
         tinymce.init(option);
 
-        if(typeof callback == 'function'){
+        if (typeof callback == 'function') {
 
             callback.call(option)
 
@@ -160,13 +160,13 @@ layui.define(['jquery'],function (exports) {
     // 获取ID对应的编辑器对象
     t.get = (elem) => {
 
-        if(elem && /^#|\./.test(elem)){
+        if (elem && /^#|\./.test(elem)) {
 
             var id = elem.substr(1)
 
             var edit = tinymce.editors[id];
 
-            if(!edit){
+            if (!edit) {
 
                 return console.error("编辑器未加载")
 
@@ -182,7 +182,7 @@ layui.define(['jquery'],function (exports) {
     }
 
     //重载
-    t.reload = (option,callback) => {
+    t.reload = (option, callback) => {
         option = option || {}
 
         var edit = t.get(option.elem);
@@ -191,11 +191,11 @@ layui.define(['jquery'],function (exports) {
 
         edit.destroy()
 
-        $.extend(optionCache,option)
+        $.extend(optionCache, option)
 
         tinymce.init(optionCache)
 
-        if(typeof callback == 'function'){
+        if (typeof callback == 'function') {
 
             callback.call(optionCache)
 

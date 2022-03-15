@@ -19,7 +19,7 @@ import http from '@/utils/http.js'
 // 基础配置
 import base from '@/utils/base'
 // 工具类
-import { isAuth, getCurDate, getCurDateTime } from '@/utils/utils'
+import {getCurDate, getCurDateTime, isAuth} from '@/utils/utils'
 // storage 封装
 import storage from "@/utils/storage";
 // 上传组件
@@ -36,17 +36,16 @@ import '@/icons'
 //excel导出
 import JsonExcel from 'vue-json-excel'
 //打印
-import printJS from 'print-js'
 //MD5
 import md5 from 'js-md5';
 
 // 后台地图
 Vue.use(VueAMap)
 VueAMap.initAMapApiLoader({
-  key: 'ca04cee7ac952691aa67a131e6f0cee0',
-  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.Geocoder'],
-  // 默认高德 sdk 版本为 1.4.4
-  v: '1.4.4'
+    key: 'ca04cee7ac952691aa67a131e6f0cee0',
+    plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.Geocoder'],
+    // 默认高德 sdk 版本为 1.4.4
+    v: '1.4.4'
 })
 Vue.prototype.$validate = validate
 Vue.prototype.$http = http // ajax请求方法
@@ -60,7 +59,7 @@ Vue.prototype.isAuth = isAuth
 Vue.prototype.getCurDateTime = getCurDateTime
 Vue.prototype.getCurDate = getCurDate
 // Vue.prototype.$base = base
-Vue.use(ElementUI, { size: 'medium', zIndex: 3000 });
+Vue.use(ElementUI, {size: 'medium', zIndex: 3000});
 Vue.config.productionTip = false
 // 组件全局组件
 Vue.component('bread-crumbs', BreadCrumbs)
@@ -71,6 +70,6 @@ Vue.component('downloadExcel', JsonExcel)
 //MD5
 Vue.prototype.$md5 = md5;
 new Vue({
-  render: h => h(App),
-  router
+    render: h => h(App),
+    router
 }).$mount('#app')

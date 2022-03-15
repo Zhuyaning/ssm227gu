@@ -12,7 +12,7 @@
         if (typeof jQuery === 'undefined') {
             throw 'AMapPositionPicker requires jQuery to be loaded first';
         }
-        if (typeof  AMap == 'undefined') {
+        if (typeof AMap == 'undefined') {
             throw 'AMapPositionPicker requires AMap to be loaded first';
         }
         factory(jQuery, AMap);
@@ -22,7 +22,7 @@
     String.prototype.format = function (data) {
         var result = this;
         for (var key in data) {
-            if (data[key] != undefined) {
+            if (data[key] !== undefined) {
                 var reg = new RegExp("({" + key + "})", "g");
                 result = result.replace(reg, data[key]);
             }
@@ -55,10 +55,10 @@
         }
 
         Position.prototype.isValid = function () {
-            return this.longitude != undefined && this.longitude != null && this.latitude != undefined && this.latitude != null;
+            return this.longitude !== undefined && this.longitude != null && this.latitude !== undefined && this.latitude != null;
         };
         Position.prototype.copy = function (data) {
-            if (data == undefined) {
+            if (data === undefined) {
                 return new Position(this.longitude, this.latitude, this.address, this.label);
             } else {
                 return new Position(
@@ -122,8 +122,7 @@
             if (options.selector instanceof jQuery) {
                 this.$widget = options.selector;
                 this.created = true;
-            }
-            else if ($(options.selector).length > 0) {
+            } else if ($(options.selector).length > 0) {
                 this.$widget = $(options.selector);
                 this.created = true;
             } else {
@@ -192,7 +191,8 @@
             + '</div>';
         var searchPanelHtml = '<div id="idAMapPositionPickerSearchPanel" class="collapse"><input class="form-control input-sm" id="idAMapPositionPickerSearchInput"/><ul id="idAMapPositionPickerSearchResult" class="list-group"></ul></div>';
         var mapPanelHtml = '<div id="idAMapPositionPickerFloatContainer" style="position: absolute;z-index: 2;top:5px;right: 5px;">' + toolsHtml + searchPanelHtml + '</div>';
-        var modalHtml = '<div class="modal fade" id="idAMapPositionPickerModal">'
+        //End of Modal
+        return '<div class="modal fade" id="idAMapPositionPickerModal">'
             + '<div class="modal-dialog">'
             + '<div class="modal-content">'
             + '<div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title">请选择地址</h4><small id="idAMapPositionPickerAlert" style="color: red">必须选择一个位置</small></div>'
@@ -207,8 +207,7 @@
             + '</div>' //End of Modal-footer
             + '</div>' //End of Modal-content
             + '</div>' // End of Modal-dialog
-            + '</div>';//End of Modal
-        return modalHtml;
+            + '</div>';
     }
 
     var PICKER_CONTROLLER = (function () {
@@ -240,10 +239,6 @@
         function activate(picker) {
             mPicker = picker;
             showModal();
-        }
-
-        function deactivate() {
-            mPicker = null;
         }
 
         function showModal() {
@@ -333,7 +328,7 @@
         function location() {
             $alert.hide();
             geolocation.getCurrentPosition(function (status, result) {
-                if (status == 'complete') {
+                if (status === 'complete') {
                     selectMarker(createMarkerFromLnglat(result.position.lng, result.position.lat, result.formattedAddress))
                 } else {
                     $alert.html(result.message).show();
@@ -368,8 +363,7 @@
                 $modal.modal('hide');
                 return;
             }
-            var address = $addressInput.val();
-            cachePosition.address = address;
+            cachePosition.address = $addressInput.val();
 
             // Always use new position instance
             var pickedPosition;
@@ -406,7 +400,7 @@
 
             $searchInput.on('keydown', function (e) {
                 var searchKeyword = $searchInput.val();
-                if (e.which == '13' && searchKeyword.length > 0) { //Enter
+                if (e.which === '13' && searchKeyword.length > 0) { //Enter
                     AMap.service('AMap.PlaceSearch', function () {
                         var placeSearch = new AMap.PlaceSearch({
                             pageSize: 6,
@@ -420,7 +414,7 @@
                                 markerList[i].setMap(null);
                             }
                             markerList = [];
-                            if (status == 'complete') {
+                            if (status === 'complete') {
                                 for (var i in result.poiList.pois) {
                                     var poi = result.poiList.pois[i];
                                     var li = $('<li data-poi-index="{i}" class="list-group-item"><small>{name}</small></li>'.format({
@@ -475,8 +469,7 @@
             if (position.address) {
                 markerOpts.title = position.address;
             }
-            var marker = new AMap.Marker(markerOpts);
-            return marker;
+            return new AMap.Marker(markerOpts);
         }
 
         function createMarkerFromLnglat(longitude, latitude, address) {
@@ -500,7 +493,7 @@
                         extensions: "base"
                     });
                     AMap.event.addListener(geocoder, "complete", function (GeocoderResult) {
-                        if (GeocoderResult["info"] == "OK") {
+                        if (GeocoderResult["info"] === "OK") {
                             var address = GeocoderResult.regeocode.formattedAddress;
                             position.address = address;
                             selectedMarker.setExtData(position);
@@ -636,7 +629,7 @@
             isInstance = true,
             thisMethods = [], //可级联函数列表
             returnValue;
-        if (typeof  options == 'object') {
+        if (typeof options == 'object') {
             return this.each(function () {
                 var $this = $(this);
                 if (!$this.data('AMapPositionPicker')) {
@@ -661,7 +654,7 @@
                     $this.data('AMapPositionPicker', aMapPositionPicker($this, options));
                 }
             });
-        } else if (typeof  options == 'string') {
+        } else if (typeof options == 'string') {
             this.each(function () {
                 var $this = $(this),
                     instance = $this.data('AMapPositionPicker');
