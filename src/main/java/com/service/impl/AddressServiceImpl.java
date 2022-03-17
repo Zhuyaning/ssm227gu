@@ -24,7 +24,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressDao, AddressEntity> i
     public PageUtils queryPage(Map<String, Object> params) {
         Page<AddressEntity> page = this.selectPage(
                 new Query<AddressEntity>(params).getPage(),
-                new EntityWrapper<AddressEntity>()
+                new EntityWrapper<>()
         );
         return new PageUtils(page);
     }
@@ -33,8 +33,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressDao, AddressEntity> i
     public PageUtils queryPage(Map<String, Object> params, Wrapper<AddressEntity> wrapper) {
         Page<AddressView> page = new Query<AddressView>(params).getPage();
         page.setRecords(baseMapper.selectListView(page, wrapper));
-        PageUtils pageUtil = new PageUtils(page);
-        return pageUtil;
+        return new PageUtils(page);
     }
 
     @Override

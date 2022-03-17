@@ -36,7 +36,7 @@ public class MPUtil {
     }
 
     public static Wrapper allLike(Wrapper wrapper, Object bean) {
-        Map result = BeanUtil.beanToMap(bean, true, true);
+        Map<String, Object> result = BeanUtil.beanToMap(bean, true, true);
         return genLike(wrapper, result);
     }
 
@@ -56,7 +56,7 @@ public class MPUtil {
     }
 
     public static Wrapper likeOrEq(Wrapper wrapper, Object bean) {
-        Map result = BeanUtil.beanToMap(bean, true, true);
+        Map<String, Object> result = BeanUtil.beanToMap(bean, true, true);
         return genLikeOrEq(wrapper, result);
     }
 
@@ -78,7 +78,7 @@ public class MPUtil {
     }
 
     public static Wrapper allEq(Wrapper wrapper, Object bean) {
-        Map result = BeanUtil.beanToMap(bean, true, true);
+        Map<String, Object> result = BeanUtil.beanToMap(bean, true, true);
         return genEq(wrapper, result);
     }
 

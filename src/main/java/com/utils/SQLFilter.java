@@ -9,6 +9,9 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class SQLFilter {
 
+    private SQLFilter() {
+    }
+
     /**
      * SQL注入过滤
      *
@@ -32,7 +35,7 @@ public class SQLFilter {
 
         //判断是否包含非法字符
         for (String keyword : keywords) {
-            if (str.indexOf(keyword) != -1) {
+            if (str.contains(keyword)) {
                 throw new EIException("包含非法字符");
             }
         }

@@ -15,9 +15,6 @@ import java.util.Map;
 /**
  * 商品信息
  *
- * @author
- * @email
- * @date 2021-04-21 18:51:06
  */
 public interface ShangpinxinxiService extends IService<ShangpinxinxiEntity> {
 

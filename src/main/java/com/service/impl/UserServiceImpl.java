@@ -27,7 +27,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
     public PageUtils queryPage(Map<String, Object> params) {
         Page<UserEntity> page = this.selectPage(
                 new Query<UserEntity>(params).getPage(),
-                new EntityWrapper<UserEntity>()
+                new EntityWrapper<>()
         );
         return new PageUtils(page);
     }
@@ -42,7 +42,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
                                Wrapper<UserEntity> wrapper) {
         Page<UserEntity> page = new Query<UserEntity>(params).getPage();
         page.setRecords(baseMapper.selectListView(page, wrapper));
-        PageUtils pageUtil = new PageUtils(page);
-        return pageUtil;
+        return new PageUtils(page);
     }
 }

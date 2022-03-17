@@ -41,7 +41,7 @@ public class AddressController {
             address.setUserid((Long) request.getSession().getAttribute("userId"));
         }
 
-        EntityWrapper<AddressEntity> ew = new EntityWrapper<AddressEntity>();
+        EntityWrapper<AddressEntity> ew = new EntityWrapper<>();
         PageUtils page = addressService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, address), params), params));
         return R.ok().put("data", page);
     }
@@ -56,7 +56,7 @@ public class AddressController {
             address.setUserid((Long) request.getSession().getAttribute("userId"));
         }
 
-        EntityWrapper<AddressEntity> ew = new EntityWrapper<AddressEntity>();
+        EntityWrapper<AddressEntity> ew = new EntityWrapper<>();
         PageUtils page = addressService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, address), params), params));
         return R.ok().put("data", page);
     }
@@ -66,7 +66,7 @@ public class AddressController {
      */
     @RequestMapping("/lists")
     public R list(AddressEntity address) {
-        EntityWrapper<AddressEntity> ew = new EntityWrapper<AddressEntity>();
+        EntityWrapper<AddressEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(address, "address"));
         return R.ok().put("data", addressService.selectListView(ew));
     }
@@ -76,7 +76,7 @@ public class AddressController {
      */
     @RequestMapping("/query")
     public R query(AddressEntity address) {
-        EntityWrapper<AddressEntity> ew = new EntityWrapper<AddressEntity>();
+        EntityWrapper<AddressEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(address, "address"));
         AddressView addressView = addressService.selectView(ew);
         return R.ok("查询地址成功").put("data", addressView);
@@ -184,14 +184,14 @@ public class AddressController {
             Date remindStartDate = null;
             Date remindEndDate = null;
             if (map.get("remindstart") != null) {
-                Integer remindStart = Integer.parseInt(map.get("remindstart").toString());
+                int remindStart = Integer.parseInt(map.get("remindstart").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindStart);
                 remindStartDate = c.getTime();
                 map.put("remindstart", sdf.format(remindStartDate));
             }
             if (map.get("remindend") != null) {
-                Integer remindEnd = Integer.parseInt(map.get("remindend").toString());
+                int remindEnd = Integer.parseInt(map.get("remindend").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindEnd);
                 remindEndDate = c.getTime();

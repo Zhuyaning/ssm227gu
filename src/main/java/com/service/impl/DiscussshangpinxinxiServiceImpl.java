@@ -24,7 +24,7 @@ public class DiscussshangpinxinxiServiceImpl extends ServiceImpl<Discussshangpin
     public PageUtils queryPage(Map<String, Object> params) {
         Page<DiscussshangpinxinxiEntity> page = this.selectPage(
                 new Query<DiscussshangpinxinxiEntity>(params).getPage(),
-                new EntityWrapper<DiscussshangpinxinxiEntity>()
+                new EntityWrapper<>()
         );
         return new PageUtils(page);
     }
@@ -33,8 +33,7 @@ public class DiscussshangpinxinxiServiceImpl extends ServiceImpl<Discussshangpin
     public PageUtils queryPage(Map<String, Object> params, Wrapper<DiscussshangpinxinxiEntity> wrapper) {
         Page<DiscussshangpinxinxiView> page = new Query<DiscussshangpinxinxiView>(params).getPage();
         page.setRecords(baseMapper.selectListView(page, wrapper));
-        PageUtils pageUtil = new PageUtils(page);
-        return pageUtil;
+        return new PageUtils(page);
     }
 
     @Override

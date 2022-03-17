@@ -24,7 +24,7 @@ public class ShangpinfenleiServiceImpl extends ServiceImpl<ShangpinfenleiDao, Sh
     public PageUtils queryPage(Map<String, Object> params) {
         Page<ShangpinfenleiEntity> page = this.selectPage(
                 new Query<ShangpinfenleiEntity>(params).getPage(),
-                new EntityWrapper<ShangpinfenleiEntity>()
+                new EntityWrapper<>()
         );
         return new PageUtils(page);
     }
@@ -33,8 +33,7 @@ public class ShangpinfenleiServiceImpl extends ServiceImpl<ShangpinfenleiDao, Sh
     public PageUtils queryPage(Map<String, Object> params, Wrapper<ShangpinfenleiEntity> wrapper) {
         Page<ShangpinfenleiView> page = new Query<ShangpinfenleiView>(params).getPage();
         page.setRecords(baseMapper.selectListView(page, wrapper));
-        PageUtils pageUtil = new PageUtils(page);
-        return pageUtil;
+        return new PageUtils(page);
     }
 
     @Override

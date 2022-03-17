@@ -15,9 +15,6 @@ import java.util.Map;
 /**
  * 系统公告
  *
- * @author
- * @email
- * @date 2021-04-21 18:51:06
  */
 public interface NewsService extends IService<NewsEntity> {
 

@@ -24,7 +24,7 @@ public class StoreupServiceImpl extends ServiceImpl<StoreupDao, StoreupEntity> i
     public PageUtils queryPage(Map<String, Object> params) {
         Page<StoreupEntity> page = this.selectPage(
                 new Query<StoreupEntity>(params).getPage(),
-                new EntityWrapper<StoreupEntity>()
+                new EntityWrapper<>()
         );
         return new PageUtils(page);
     }
@@ -33,8 +33,7 @@ public class StoreupServiceImpl extends ServiceImpl<StoreupDao, StoreupEntity> i
     public PageUtils queryPage(Map<String, Object> params, Wrapper<StoreupEntity> wrapper) {
         Page<StoreupView> page = new Query<StoreupView>(params).getPage();
         page.setRecords(baseMapper.selectListView(page, wrapper));
-        PageUtils pageUtil = new PageUtils(page);
-        return pageUtil;
+        return new PageUtils(page);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, NewsEntity> implements
     public PageUtils queryPage(Map<String, Object> params) {
         Page<NewsEntity> page = this.selectPage(
                 new Query<NewsEntity>(params).getPage(),
-                new EntityWrapper<NewsEntity>()
+                new EntityWrapper<>()
         );
         return new PageUtils(page);
     }
@@ -33,8 +33,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, NewsEntity> implements
     public PageUtils queryPage(Map<String, Object> params, Wrapper<NewsEntity> wrapper) {
         Page<NewsView> page = new Query<NewsView>(params).getPage();
         page.setRecords(baseMapper.selectListView(page, wrapper));
-        PageUtils pageUtil = new PageUtils(page);
-        return pageUtil;
+        return new PageUtils(page);
     }
 
     @Override

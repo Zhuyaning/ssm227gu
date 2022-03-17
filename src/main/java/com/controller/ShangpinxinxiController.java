@@ -41,7 +41,7 @@ public class ShangpinxinxiController {
     public R page(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi,
                   HttpServletRequest request) {
 
-        EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<ShangpinxinxiEntity>();
+        EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinxinxiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinxinxi), params), params));
         return R.ok().put("data", page);
     }

@@ -79,20 +79,19 @@ public class BaiduUtil {
             }
             // 定义 BufferedReader输入流来读取URL的响应
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String result = "";
+            StringBuilder result = new StringBuilder();
             String line;
             while ((line = in.readLine()) != null) {
-                result += line;
+                result.append(line);
             }
-            /**
+            /*
              * 返回结果示例
              */
             System.err.println("result:" + result);
-            org.json.JSONObject jsonObject = new org.json.JSONObject(result);
-            String access_token = jsonObject.getString("access_token");
-            return access_token;
+            org.json.JSONObject jsonObject = new org.json.JSONObject(result.toString());
+            return jsonObject.getString("access_token");
         } catch (Exception e) {
-            System.err.printf("获取token失败！");
+            System.err.print("获取token失败！");
             e.printStackTrace(System.err);
         }
         return null;

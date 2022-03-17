@@ -1,8 +1,8 @@
 package com.model.enums;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.enums.IEnum;
+
+import java.io.Serializable;
 
 /**
  * 必须现在 IEnum 配置 该包扫描自动注入，查看文件 spring-mybatis.xml 参数 typeEnumsPackage

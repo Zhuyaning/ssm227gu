@@ -24,7 +24,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersDao, OrdersEntity> impl
     public PageUtils queryPage(Map<String, Object> params) {
         Page<OrdersEntity> page = this.selectPage(
                 new Query<OrdersEntity>(params).getPage(),
-                new EntityWrapper<OrdersEntity>()
+                new EntityWrapper<>()
         );
         return new PageUtils(page);
     }
@@ -33,8 +33,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersDao, OrdersEntity> impl
     public PageUtils queryPage(Map<String, Object> params, Wrapper<OrdersEntity> wrapper) {
         Page<OrdersView> page = new Query<OrdersView>(params).getPage();
         page.setRecords(baseMapper.selectListView(page, wrapper));
-        PageUtils pageUtil = new PageUtils(page);
-        return pageUtil;
+        return new PageUtils(page);
     }
 
     @Override

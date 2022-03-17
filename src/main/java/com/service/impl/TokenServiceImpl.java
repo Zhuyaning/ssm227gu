@@ -30,7 +30,7 @@ public class TokenServiceImpl extends ServiceImpl<TokenDao, TokenEntity> impleme
     public PageUtils queryPage(Map<String, Object> params) {
         Page<TokenEntity> page = this.selectPage(
                 new Query<TokenEntity>(params).getPage(),
-                new EntityWrapper<TokenEntity>()
+                new EntityWrapper<>()
         );
         return new PageUtils(page);
     }
@@ -45,8 +45,7 @@ public class TokenServiceImpl extends ServiceImpl<TokenDao, TokenEntity> impleme
                                Wrapper<TokenEntity> wrapper) {
         Page<TokenEntity> page = new Query<TokenEntity>(params).getPage();
         page.setRecords(baseMapper.selectListView(page, wrapper));
-        PageUtils pageUtil = new PageUtils(page);
-        return pageUtil;
+        return new PageUtils(page);
     }
 
     @Override

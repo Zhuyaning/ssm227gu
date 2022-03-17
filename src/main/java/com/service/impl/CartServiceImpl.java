@@ -24,7 +24,7 @@ public class CartServiceImpl extends ServiceImpl<CartDao, CartEntity> implements
     public PageUtils queryPage(Map<String, Object> params) {
         Page<CartEntity> page = this.selectPage(
                 new Query<CartEntity>(params).getPage(),
-                new EntityWrapper<CartEntity>()
+                new EntityWrapper<>()
         );
         return new PageUtils(page);
     }
@@ -33,8 +33,7 @@ public class CartServiceImpl extends ServiceImpl<CartDao, CartEntity> implements
     public PageUtils queryPage(Map<String, Object> params, Wrapper<CartEntity> wrapper) {
         Page<CartView> page = new Query<CartView>(params).getPage();
         page.setRecords(baseMapper.selectListView(page, wrapper));
-        PageUtils pageUtil = new PageUtils(page);
-        return pageUtil;
+        return new PageUtils(page);
     }
 
     @Override

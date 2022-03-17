@@ -14,10 +14,6 @@ import java.util.Map;
 
 /**
  * 购物车表
- *
- * @author
- * @email
- * @date 2021-04-21 18:51:06
  */
 public interface CartService extends IService<CartEntity> {
 
