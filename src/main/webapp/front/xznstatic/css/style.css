@@ -1,5 +1,6 @@
 /* 模板秀（mobanxiu.cn）做最好的织梦整站模板下载网站 */
 @charset "utf-8";
+
 .banner {
     position: relative;
     /* left: 50%; */
@@ -383,7 +384,8 @@
     border-bottom: dotted 1px #dddddd;
 }
 
-.other_list a:hover, .other_list li:hover {
+.other_list a:hover,
+.other_list li:hover {
     color: #d42e3b
 }
 
@@ -444,7 +446,8 @@
     transition: all 0.5s;
 }
 
-.list_btn_num a:hover, .list_btn_num .hover {
+.list_btn_num a:hover,
+.list_btn_num .hover {
     color: #d42e3b;
     border-color: #d42e3b;
 }
@@ -491,7 +494,8 @@
     float: left;
     width: 212px;
     height: 310px;
-    border: solid 3px transparent;;
+    border: solid 3px transparent;
+    ;
     margin: 0 24px 67px;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -563,7 +567,8 @@
     border: solid 1px;
 }
 
-.pagelink a, .pagelink span {
+.pagelink a,
+.pagelink span {
     padding: 0 3px;
 }
 
@@ -575,9 +580,11 @@
 
 .pagelink .thisclass a {
     padding: -5px auto 3px;
-    color: #F00;;
+    color: #F00;
+    ;
 }
 
-.pagelink a.on, .pagelink a:hover {
+.pagelink a.on,
+.pagelink a:hover {
     color: #F9003B;
 }

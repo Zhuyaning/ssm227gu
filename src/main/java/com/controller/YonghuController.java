@@ -24,12 +24,14 @@ import java.util.Map;
 /**
  * 用户
  * 后端接口
- *
  */
 @RestController
 @CrossOrigin
 @RequestMapping("/yonghu")
 public class YonghuController {
+
+    private static final String USER_ACCOUNT = "yonghuzhanghao";
+
     @Autowired
     private YonghuService yonghuService;
 
@@ -41,9 +43,9 @@ public class YonghuController {
      */
     @IgnoreAuth
     @RequestMapping(value = "/login")
-    public R login(String username, String password, String captcha, HttpServletRequest request) {
-        YonghuEntity user = yonghuService.selectOne(new EntityWrapper<YonghuEntity>().eq("yonghuzhanghao", username));
-        if (user == null || !user.getMima().equals(password)) {
+    public R login(String username, String password) {
+        YonghuEntity user = yonghuService.selectOne(new EntityWrapper<YonghuEntity>().eq(USER_ACCOUNT, username));
+        if (null == user || !user.getMima().equals(password)) {
             return R.error("账号或密码不正确");
         }
         String token = tokenService.generateToken(user.getId(), username, "yonghu", "用户");

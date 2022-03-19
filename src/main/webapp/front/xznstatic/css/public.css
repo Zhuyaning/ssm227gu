@@ -1,11 +1,15 @@
-@charset "utf-8"; /* CSS Document *//*css预设*/
+@charset "utf-8";
+
+/* CSS Document */
+/*css预设*/
 * {
     margin: 0;
     padding: 0;
 }
 
 /*将所有HTML元素的默认边距清0*/
-html, body {
+html,
+body {
     font-size: 12px;
     font-family: "微软雅黑", "arial";
     color: #262626;
@@ -13,7 +17,8 @@ html, body {
 }
 
 /*对HTML元素中的字体、颜色、背景色进行初始设置*/
-ul li, ol li {
+ul li,
+ol li {
     list-style: none;
 }
 
@@ -36,12 +41,17 @@ table {
     border-spacing: 0;
 }
 
-caption, th, td {
+caption,
+th,
+td {
     font-weight: normal;
     text-align: left;
 }
 
-input, textarea, select, button {
+input,
+textarea,
+select,
+button {
     font-size: 100%;
     font-family: inherit;
     margin: 0;
@@ -50,7 +60,8 @@ input, textarea, select, button {
     outline: none;
 }
 
-label, button {
+label,
+button {
     cursor: pointer
 }
 
@@ -60,7 +71,16 @@ textarea {
     border: 1px solid #ececec;
 }
 
-article, aside, figcaption, figure, footer, header, hgroup, nav, section, summary {
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
     display: block;
 }
 
@@ -166,7 +186,7 @@ article, aside, figcaption, figure, footer, header, hgroup, nav, section, summar
     padding: 0 20px;
 }
 
-.head ul li > a {
+.head ul li>a {
     color: #262626;
     font-size: 14px;
     display: inline-block;
@@ -188,16 +208,17 @@ article, aside, figcaption, figure, footer, header, hgroup, nav, section, summar
     left: -12px;
 }
 
-.head ul li > a:hover {
+.head ul li>a:hover {
     color: #A10000;
 }
 
-.head ul li > a:hover:before {
+.head ul li>a:hover:before {
     width: 56px;
     height: 2px;
     transform: scaleX(1);
     transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
-    -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);;
+    -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+    ;
     z-index: 9999;
 }
 
@@ -278,7 +299,8 @@ article, aside, figcaption, figure, footer, header, hgroup, nav, section, summar
 }
 
 /*.ding #top1{	display: none;}*/
-.ding #top1 p, .ding #top1 div {
+.ding #top1 p,
+.ding #top1 div {
     display: none;
 }
 
@@ -286,7 +308,8 @@ article, aside, figcaption, figure, footer, header, hgroup, nav, section, summar
     bottom: -25px;
 }
 
-.ding div.sList, .ding div.sList2 {
+.ding div.sList,
+.ding div.sList2 {
     top: 81px;
 }
 
@@ -357,7 +380,8 @@ article, aside, figcaption, figure, footer, header, hgroup, nav, section, summar
     border-bottom: 1px solid #DBDBDB;
 }
 
-.address a, .address span {
+.address a,
+.address span {
     float: left;
     color: #777;
 }

@@ -1,25 +1,56 @@
 ﻿/* 模板秀（mobanxiu.cn）做最好的织梦整站模板下载网站 */
-html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
+html,
+body,
+ul,
+li,
+ol,
+dl,
+dd,
+dt,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+legend,
+img {
     margin: 0 auto;
     padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-size: 100%;
     font-weight: bold;
 }
 
-fieldset, img {
+fieldset,
+img {
     vertical-align: middle;
     border: none;
 }
 
-address, caption, cite, code, dfn, th, var {
+address,
+caption,
+cite,
+code,
+dfn,
+th,
+var {
     font-style: normal;
     font-weight: normal;
 }
 
-ul, ol {
+ul,
+ol {
     list-style: none;
 }
 
@@ -33,16 +64,21 @@ input {
     font-family: "????????????", Arial, sans-serif;
 }
 
-select, input {
+select,
+input {
     vertical-align: middle;
 }
 
-select, input, textarea {
+select,
+input,
+textarea {
     font-size: 12px;
     margin: 0;
 }
 
-input[type="text"], input[type="submit"], textarea {
+input[type="text"],
+input[type="submit"],
+textarea {
     outline-style: none;
 }
 
@@ -64,22 +100,27 @@ a {
 }
 
 a:link {
-    text-decoration: none; /* ????????????????????????????????????*/
+    text-decoration: none;
+    /* ????????????????????????????????????*/
 }
 
 a:visited {
-    text-decoration: none; /*???????????????????????????*/
+    text-decoration: none;
+    /*???????????????????????????*/
 }
 
 a:hover {
-    text-decoration: none; /*??????????????????*/
+    text-decoration: none;
+    /*??????????????????*/
 }
 
 a:active {
-    text-decoration: none; /* ?????????????????????*/
+    text-decoration: none;
+    /* ?????????????????????*/
 }
 
-i, em {
+i,
+em {
     font-style: normal;
 }
 
@@ -268,7 +309,8 @@ i, em {
     font-size: 14px;
 }
 
-.nav li a:hover, .nav li.current a {
+.nav li a:hover,
+.nav li.current a {
     color: #fff500
 }
 
@@ -374,11 +416,13 @@ i, em {
     float: left;
 }
 
-.ny_left li:hover, .ny_left li.hover {
+.ny_left li:hover,
+.ny_left li.hover {
     background: url(../img/service_btn.png) #d42e3b 140px center no-repeat;
 }
 
-.ny_left li:hover a, .ny_left li.hover a {
+.ny_left li:hover a,
+.ny_left li.hover a {
     color: #fff
 }
 
@@ -448,7 +492,8 @@ i, em {
 }
 
 /*??????*/
-#full .qq_info a, #full .qq_info span {
+#full .qq_info a,
+#full .qq_info span {
     display: block
 }
 
