@@ -111,7 +111,7 @@ public class YonghuController {
     public R page(@RequestParam Map<String, Object> params, YonghuEntity yonghu,
                   HttpServletRequest request) {
 
-        EntityWrapper<YonghuEntity> ew = new EntityWrapper<YonghuEntity>();
+        EntityWrapper<YonghuEntity> ew = new EntityWrapper<>();
         PageUtils page = yonghuService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, yonghu), params), params));
         return R.ok().put("data", page);
     }
@@ -122,7 +122,7 @@ public class YonghuController {
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params, YonghuEntity yonghu,
                   HttpServletRequest request) {
-        EntityWrapper<YonghuEntity> ew = new EntityWrapper<YonghuEntity>();
+        EntityWrapper<YonghuEntity> ew = new EntityWrapper<>();
         PageUtils page = yonghuService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, yonghu), params), params));
         return R.ok().put("data", page);
     }
@@ -132,7 +132,7 @@ public class YonghuController {
      */
     @RequestMapping("/lists")
     public R list(YonghuEntity yonghu) {
-        EntityWrapper<YonghuEntity> ew = new EntityWrapper<YonghuEntity>();
+        EntityWrapper<YonghuEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(yonghu, "yonghu"));
         return R.ok().put("data", yonghuService.selectListView(ew));
     }
@@ -142,7 +142,7 @@ public class YonghuController {
      */
     @RequestMapping("/query")
     public R query(YonghuEntity yonghu) {
-        EntityWrapper<YonghuEntity> ew = new EntityWrapper<YonghuEntity>();
+        EntityWrapper<YonghuEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(yonghu, "yonghu"));
         YonghuView yonghuView = yonghuService.selectView(ew);
         return R.ok("查询用户成功").put("data", yonghuView);
@@ -236,14 +236,14 @@ public class YonghuController {
             Date remindStartDate = null;
             Date remindEndDate = null;
             if (map.get("remindstart") != null) {
-                Integer remindStart = Integer.parseInt(map.get("remindstart").toString());
+                int remindStart = Integer.parseInt(map.get("remindstart").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindStart);
                 remindStartDate = c.getTime();
                 map.put("remindstart", sdf.format(remindStartDate));
             }
             if (map.get("remindend") != null) {
-                Integer remindEnd = Integer.parseInt(map.get("remindend").toString());
+                int remindEnd = Integer.parseInt(map.get("remindend").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindEnd);
                 remindEndDate = c.getTime();
@@ -251,7 +251,7 @@ public class YonghuController {
             }
         }
 
-        Wrapper<YonghuEntity> wrapper = new EntityWrapper<YonghuEntity>();
+        Wrapper<YonghuEntity> wrapper = new EntityWrapper<>();
         if (map.get("remindstart") != null) {
             wrapper.ge(columnName, map.get("remindstart"));
         }
