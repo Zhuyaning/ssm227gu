@@ -3,11 +3,9 @@ package com.entity;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 
@@ -16,21 +14,11 @@ import java.util.Date;
  * 数据库通用操作实体类（普通增删改查）
  */
 @TableName("cart")
-public class CartEntity<T> implements Serializable {
+public class CartEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    public CartEntity() {
 
-    }
-
-    public CartEntity(T t) {
-        try {
-            BeanUtils.copyProperties(this, t);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 主键id

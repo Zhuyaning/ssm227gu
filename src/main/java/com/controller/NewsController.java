@@ -21,7 +21,7 @@ import java.util.Map;
 
 
 /**
- * 系统公告
+ * 系统资讯
  * 后端接口
  */
 @RestController
@@ -74,7 +74,7 @@ public class NewsController {
         EntityWrapper<NewsEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(news, "news"));
         NewsView newsView = newsService.selectView(ew);
-        return R.ok("查询系统公告成功").put("data", newsView);
+        return R.ok("查询系统资讯成功").put("data", newsView);
     }
 
     /**

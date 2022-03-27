@@ -27,7 +27,7 @@ const menu = {
                     "buttons": ["查看", "修改"],
                     "menu": "轮播图管理",
                     "tableName": "config"
-                }, {"buttons": ["新增", "查看", "修改", "删除"], "menu": "系统公告", "tableName": "news"}], "menu": "系统管理"
+                }, {"buttons": ["新增", "查看", "修改", "删除"], "menu": "系统资讯", "tableName": "news"}], "menu": "系统管理"
             }, {
                 "child": [{
                     "buttons": ["查看", "删除"],

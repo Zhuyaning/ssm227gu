@@ -485,14 +485,14 @@
                 </div>
             </div>
 
-            <!-- 系统公告 -->
+            <!-- 系统资讯 -->
             <!-- 样式一 -->
             <div class="recommend index-pv2"
                 :style='{"padding":"0px 0 10px 0","boxShadow":"0 0 0px rgba(255,0,0,.8)","margin":"0px 0 0 0","borderColor":"rgba(255, 255, 255, 0.3)","backgroundColor":"rgba(255, 255, 255, 1)","borderRadius":"0","borderWidth":"0","borderStyle":"solid"}'>
                 <div class="box" style='width:80%'>
                     <div class="title"
                         :style='{"padding":"10px 0 10px 0","boxShadow":"0 0 0px rgba(255,0,0,.8)","margin":"10px 0 10px 0","borderColor":"rgba(0,0,0,1)","backgroundColor":"rgba(255, 255, 255, 1)","color":"rgba(34, 34, 34, 1)","borderRadius":"0px","alignItems":"center","borderWidth":"0 0px","fontSize":"25px","borderStyle":"solid"}'>
-                        <span>HOME NEWS</span><span>系统公告</span>
+                        <span>HOME NEWS</span><span>系统资讯</span>
                     </div>
                     <div class="list">
                         <div v-for="(item,index) in newsList" :key="index"
@@ -574,7 +574,7 @@
 
                 shangpinxinxiList: [],
                 swiperList: [],
-                // 系统公告
+                // 系统资讯
                 newsList: [],
                 leftNewsList: [],
                 rightNewsList: []
@@ -644,7 +644,7 @@
                 }
             });
 
-            // 系统公告
+            // 系统资讯
             http.request('news/list', 'get', {
                 page: 1,
                 limit: 3 * 2,

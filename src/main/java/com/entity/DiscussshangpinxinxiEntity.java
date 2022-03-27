@@ -17,21 +17,13 @@ import java.util.Date;
  *
  */
 @TableName("discussshangpinxinxi")
-public class DiscussshangpinxinxiEntity<T> implements Serializable {
+public class DiscussshangpinxinxiEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    public DiscussshangpinxinxiEntity() {
 
-    }
 
-    public DiscussshangpinxinxiEntity(T t) {
-        try {
-            BeanUtils.copyProperties(this, t);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     /**
      * 主键id

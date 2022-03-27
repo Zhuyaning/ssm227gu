@@ -51,7 +51,7 @@ const routes = [{
     }
         , {
             path: '/news',
-            name: '系统公告',
+            name: '系统资讯',
             component: news
         }
         , {

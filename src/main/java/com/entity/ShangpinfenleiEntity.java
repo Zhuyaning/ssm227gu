@@ -16,21 +16,13 @@ import java.util.Date;
  * 数据库通用操作实体类（普通增删改查）
  */
 @TableName("shangpinfenlei")
-public class ShangpinfenleiEntity<T> implements Serializable {
+public class ShangpinfenleiEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    public ShangpinfenleiEntity() {
 
-    }
 
-    public ShangpinfenleiEntity(T t) {
-        try {
-            BeanUtils.copyProperties(this, t);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     /**
      * 主键id

@@ -16,21 +16,13 @@ import java.util.Date;
  * 数据库通用操作实体类（普通增删改查）
  */
 @TableName("orders")
-public class OrdersEntity<T> implements Serializable {
+public class OrdersEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    public OrdersEntity() {
 
-    }
 
-    public OrdersEntity(T t) {
-        try {
-            BeanUtils.copyProperties(this, t);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     /**
      * 主键id

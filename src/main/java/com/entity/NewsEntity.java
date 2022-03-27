@@ -12,27 +12,15 @@ import java.util.Date;
 
 
 /**
- * 系统公告
+ * 资讯公告
  * 数据库通用操作实体类（普通增删改查）
  *
  */
 @TableName("news")
-public class NewsEntity<T> implements Serializable {
+public class NewsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    public NewsEntity() {
-
-    }
-
-    public NewsEntity(T t) {
-        try {
-            BeanUtils.copyProperties(this, t);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 主键id

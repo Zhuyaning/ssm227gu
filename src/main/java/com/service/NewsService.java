@@ -13,7 +13,7 @@ import java.util.Map;
 
 
 /**
- * 系统公告
+ * 系统资讯
  *
  */
 public interface NewsService extends IService<NewsEntity> {

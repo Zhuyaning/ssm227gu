@@ -16,21 +16,13 @@ import java.util.Date;
  * 数据库通用操作实体类（普通增删改查）
  */
 @TableName("storeup")
-public class StoreupEntity<T> implements Serializable {
+public class StoreupEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    public StoreupEntity() {
 
-    }
 
-    public StoreupEntity(T t) {
-        try {
-            BeanUtils.copyProperties(this, t);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     /**
      * 主键id

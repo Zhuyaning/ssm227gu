@@ -18,22 +18,13 @@ import java.util.Date;
 
  */
 @TableName("shangpinxinxi")
-public class ShangpinxinxiEntity<T> implements Serializable {
+public class ShangpinxinxiEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    public ShangpinxinxiEntity() {
 
-    }
 
-    public ShangpinxinxiEntity(T t) {
-        try {
-            BeanUtils.copyProperties(this, t);
-        } catch (IllegalAccessException | InvocationTargetException e) {
 
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 主键id

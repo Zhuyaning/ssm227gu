@@ -12,7 +12,7 @@ import java.util.List;
 
 
 /**
- * 系统公告
+ * 系统资讯
  *
  */
 public interface NewsDao extends BaseMapper<NewsEntity> {
