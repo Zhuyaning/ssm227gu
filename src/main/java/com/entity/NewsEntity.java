@@ -3,23 +3,19 @@ package com.entity;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 
 /**
- * 资讯公告
+ * 资讯
  * 数据库通用操作实体类（普通增删改查）
- *
  */
 @TableName("news")
 public class NewsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-
 
 
     /**

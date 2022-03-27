@@ -475,7 +475,7 @@
                     </div>
                     <div class="clear"></div>
                     <div style="text-align: center;">
-                        <button @click="jump('../shangpinxinxi/list.html')" style="display: block;cursor: pointer;"
+                        <el-button @click="jump('../shangpinxinxi/list.html')" style="display: block;cursor: pointer;"
                             type="button"
                             :style='{"padding":"0 15px","boxShadow":"0 0 6px rgba(255,0,0,0)","margin":"4px auto","borderColor":"#ccc","backgroundColor":"#fff","color":"rgba(255, 153, 0, 1)","borderRadius":"6px","borderWidth":"0","width":"auto","fontSize":"14px","borderStyle":"solid","height":"34px"}'>
                             查看更多<i v-if="true"
@@ -511,7 +511,7 @@
                     </div>
                     <div class="clear"></div>
                     <div style="text-align: center;">
-                        <button @click="jump('../news/list.html')" style="display: block;cursor: pointer;" type="button"
+                        <el-button @click="jump('../news/list.html')" style="display: block;cursor: pointer;" type="button"
                             :style='{"padding":"0 15px","boxShadow":"0 0 6px rgba(255,0,0,0)","margin":"4px auto","borderColor":"#ccc","backgroundColor":"#fff","color":"rgba(255, 153, 0, 1)","borderRadius":"6px","borderWidth":"0","width":"auto","fontSize":"14px","borderStyle":"solid","height":"34px"}'>
                             查看更多<i v-if="true"
                                 :style='{"isshow":true,"padding":"0 0 0 1px","fontSize":"14px","color":"rgba(255, 153, 0, 1)"}'
@@ -546,7 +546,7 @@
                     </div>
                     <div class="clear"></div>
                     <div style="text-align: center;">
-                        <button @click="jump('../shangpinxinxi/list.html')" style="display: block;cursor: pointer;"
+                        <el-button @click="jump('../shangpinxinxi/list.html')" style="display: block;cursor: pointer;"
                             type="button"
                             :style='{"padding":"0 15px","boxShadow":"0 0 6px rgba(255,0,0,0)","margin":"4px auto","borderColor":"#ccc","backgroundColor":"#fff","color":"rgba(255, 153, 0, 1)","borderRadius":"6px","borderWidth":"0","width":"auto","fontSize":"14px","borderStyle":"solid","height":"34px"}'>
                             查看更多<i v-if="true"
@@ -743,14 +743,14 @@
                 options.pagination = {
                     el: 'null'
                 }
-                if (flag == 3) {
+                if (flag === 3) {
                     vue.$nextTick(() => {
                         new Swiper('#recommendshangpinxinxi', options)
                     })
                 }
 
                 // 商品推荐样式五
-                if (flag == 5) {
+                if (flag === 5) {
                     vue.$nextTick(() => {
                         var swiper = new Swiper('#recommend-five-swiper', {
                             loop: true,
@@ -802,7 +802,7 @@
 
             http.request(`shangpinxinxi/list`, 'get', {
                 page: 1,
-                limit: 4 * 1
+                limit: 4
             }, function (res) {
                 vue.shangpinxinxiList = res.data.list;
                 let flag = 1;
@@ -822,14 +822,14 @@
                 options.pagination = {
                     el: 'null'
                 }
-                if (flag == 3) {
+                if (flag === 3) {
                     vue.$nextTick(() => {
                         new Swiper('#listsshangpinxinxi', options)
                     })
                 }
 
                 // 商品列表样式五
-                if (flag == 5) {
+                if (flag === 5) {
                     vue.$nextTick(() => {
                         var swiper = new Swiper('#lists-five-swiper', {
                             loop: true,
