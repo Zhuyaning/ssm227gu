@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.entity.ConfigEntity;
 import com.entity.EIException;
 import com.service.ConfigService;
-import com.utils.R;
+import com.utils.Result;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +35,7 @@ public class FileController {
      * 上传文件
      */
     @RequestMapping("/upload")
-    public R upload(@RequestParam("file") MultipartFile file, String type, HttpServletRequest request) throws IOException {
+    public Result upload(@RequestParam("file") MultipartFile file, String type, HttpServletRequest request) throws IOException {
         if (file.isEmpty()) {
             throw new EIException("上传文件不能为空");
         }
@@ -54,7 +54,7 @@ public class FileController {
             }
             configService.insertOrUpdate(configEntity);
         }
-        return R.ok().put("file", fileName);
+        return Result.ok().put("file", fileName);
     }
 
     /**

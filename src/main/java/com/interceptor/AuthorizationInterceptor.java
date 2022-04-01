@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.annotation.IgnoreAuth;
 import com.entity.TokenEntity;
 import com.service.TokenService;
-import com.utils.R;
+import com.utils.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -71,7 +71,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         response.setContentType("application/json; charset=utf-8");
         try {
             writer = response.getWriter();
-            writer.print(JSON.toJSONString(R.error(401, "请先登录")));
+            writer.print(JSON.toJSONString(Result.error(401, "请先登录")));
         } finally {
             if (writer != null) {
                 writer.close();

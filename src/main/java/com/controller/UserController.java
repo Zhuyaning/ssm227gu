@@ -9,7 +9,7 @@ import com.service.TokenService;
 import com.service.UserService;
 import com.utils.MPUtil;
 import com.utils.PageUtils;
-import com.utils.R;
+import com.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
- * 登录相关
+ * 管理员登录相关
  */
 @RequestMapping("users")
 @RestController
@@ -36,13 +36,13 @@ public class UserController {
      */
     @IgnoreAuth
     @PostMapping(value = "/login")
-    public R login(String username, String password, String captcha, HttpServletRequest request) {
+    public Result login(String username, String password) {
         UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username));
         if (user == null || !user.getPassword().equals(password)) {
-            return R.error("账号或密码不正确");
+            return Result.error("账号或密码不正确");
         }
         String token = tokenService.generateToken(user.getId(), username, "users", user.getRole());
-        return R.ok().put("token", token);
+        return Result.ok().put("token", token);
     }
 
     /**
@@ -50,22 +50,22 @@ public class UserController {
      */
     @IgnoreAuth
     @PostMapping(value = "/register")
-    public R register(@RequestBody UserEntity user) {
+    public Result register(@RequestBody UserEntity user) {
 //    	ValidatorUtils.validateEntity(user);
         if (userService.selectOne(new EntityWrapper<UserEntity>().eq("username", user.getUsername())) != null) {
-            return R.error("用户已存在");
+            return Result.error("用户已存在");
         }
         userService.insert(user);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 退出
      */
     @GetMapping(value = "logout")
-    public R logout(HttpServletRequest request) {
+    public Result logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return R.ok("退出成功");
+        return Result.ok("退出成功");
     }
 
     /**
@@ -73,88 +73,88 @@ public class UserController {
      */
     @IgnoreAuth
     @RequestMapping(value = "/resetPass")
-    public R resetPass(String username, HttpServletRequest request) {
+    public Result resetPass(String username, HttpServletRequest request) {
         UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username));
         if (user == null) {
-            return R.error("账号不存在");
+            return Result.error("账号不存在");
         }
         user.setPassword("123456");
         userService.update(user, null);
-        return R.ok("密码已重置为：123456");
+        return Result.ok("密码已重置为：123456");
     }
 
     /**
      * 列表
      */
     @RequestMapping("/page")
-    public R page(@RequestParam Map<String, Object> params, UserEntity user) {
+    public Result page(@RequestParam Map<String, Object> params, UserEntity user) {
         EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
         PageUtils page = userService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.allLike(ew, user), params), params));
-        return R.ok().put("data", page);
+        return Result.ok().put("data", page);
     }
 
     /**
      * 列表
      */
     @RequestMapping("/list")
-    public R list(UserEntity user) {
+    public Result list(UserEntity user) {
         EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
         ew.allEq(MPUtil.allEQMapPre(user, "user"));
-        return R.ok().put("data", userService.selectListView(ew));
+        return Result.ok().put("data", userService.selectListView(ew));
     }
 
     /**
      * 信息
      */
     @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") String id) {
+    public Result info(@PathVariable("id") String id) {
         UserEntity user = userService.selectById(id);
-        return R.ok().put("data", user);
+        return Result.ok().put("data", user);
     }
 
     /**
      * 获取用户的session用户信息
      */
     @RequestMapping("/session")
-    public R getCurrUser(HttpServletRequest request) {
+    public Result getCurrUser(HttpServletRequest request) {
         Long id = (Long) request.getSession().getAttribute("userId");
         UserEntity user = userService.selectById(id);
-        return R.ok().put("data", user);
+        return Result.ok().put("data", user);
     }
 
     /**
      * 保存
      */
     @PostMapping("/save")
-    public R save(@RequestBody UserEntity user) {
+    public Result save(@RequestBody UserEntity user) {
 //    	ValidatorUtils.validateEntity(user);
         if (userService.selectOne(new EntityWrapper<UserEntity>().eq("username", user.getUsername())) != null) {
-            return R.error("用户已存在");
+            return Result.error("用户已存在");
         }
         userService.insert(user);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody UserEntity user) {
+    public Result update(@RequestBody UserEntity user) {
 //        ValidatorUtils.validateEntity(user);
         UserEntity u = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", user.getUsername()));
         if (u != null && u.getId() != user.getId() && u.getUsername().equals(user.getUsername())) {
-            return R.error("用户名已存在。");
+            return Result.error("用户名已存在。");
         }
         userService.updateById(user);//全部更新
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids) {
+    public Result delete(@RequestBody Long[] ids) {
         userService.deleteBatchIds(Arrays.asList(ids));
-        return R.ok();
+        return Result.ok();
     }
 }

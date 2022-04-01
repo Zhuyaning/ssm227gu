@@ -11,7 +11,7 @@ import com.service.CommonService;
 import com.service.ConfigService;
 import com.utils.BaiduUtil;
 import com.utils.FileUtil;
-import com.utils.R;
+import com.utils.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +41,15 @@ public class CommonController {
     private static String BAIDU_DITU_AK = null;
 
     @RequestMapping("/location")
-    public R location(String lng, String lat) {
+    public Result location(String lng, String lat) {
         if (BAIDU_DITU_AK == null) {
             BAIDU_DITU_AK = configService.selectOne(new EntityWrapper<ConfigEntity>().eq("name", "baidu_ditu_ak")).getValue();
             if (BAIDU_DITU_AK == null) {
-                return R.error("请在配置管理中正确配置baidu_ditu_ak");
+                return Result.error("请在配置管理中正确配置baidu_ditu_ak");
             }
         }
         Map<String, String> map = BaiduUtil.getCityByLonLat(BAIDU_DITU_AK, lng, lat);
-        return R.ok().put("data", map);
+        return Result.ok().put("data", map);
     }
 
     /**
@@ -59,14 +59,14 @@ public class CommonController {
      * @param face2 人脸2
      */
     @RequestMapping("/matchFace")
-    public R matchFace(String face1, String face2, HttpServletRequest request) {
+    public Result matchFace(String face1, String face2, HttpServletRequest request) {
         if (client == null) {
             /*String AppID = configService.selectOne(new EntityWrapper<ConfigEntity>().eq("name", "AppID")).getValue();*/
             String apikey = configService.selectOne(new EntityWrapper<ConfigEntity>().eq("name", "APIKey")).getValue();
             String secretKey = configService.selectOne(new EntityWrapper<ConfigEntity>().eq("name", "SecretKey")).getValue();
             String token = BaiduUtil.getAuth(apikey, secretKey);
             if (token == null) {
-                return R.error("请在配置管理中正确配置APIKey和SecretKey");
+                return Result.error("请在配置管理中正确配置APIKey和SecretKey");
             }
             client = new AipFace(null, apikey, secretKey);
             client.setConnectionTimeoutInMillis(2000);
@@ -76,8 +76,8 @@ public class CommonController {
         try {
             File file1 = new File(request.getSession().getServletContext().getRealPath("/upload") + "/" + face1);
             File file2 = new File(request.getSession().getServletContext().getRealPath("/upload") + "/" + face2);
-            String img1 = Base64Util.encode(FileUtil.FileToByte(file1));
-            String img2 = Base64Util.encode(FileUtil.FileToByte(file2));
+            String img1 = Base64Util.encode(FileUtil.fileToByte(file1));
+            String img2 = Base64Util.encode(FileUtil.fileToByte(file2));
             MatchRequest req1 = new MatchRequest(img1, "BASE64");
             MatchRequest req2 = new MatchRequest(img2, "BASE64");
             ArrayList<MatchRequest> requests = new ArrayList<>();
@@ -87,11 +87,11 @@ public class CommonController {
             System.out.println(res.get("result"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            return R.error("文件不存在");
+            return Result.error("文件不存在");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return R.ok().put("data", JSON.parse(res.get("result").toString()));
+        return Result.ok().put("data", JSON.parse(res.get("result").toString()));
     }
 
     /**
@@ -100,7 +100,7 @@ public class CommonController {
      */
     @IgnoreAuth
     @RequestMapping("/option/{tableName}/{columnName}")
-    public R getOption(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName, String level, String parent) {
+    public Result getOption(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName, String level, String parent) {
         Map<String, Object> params = new HashMap<>();
         params.put("table", tableName);
         params.put("column", columnName);
@@ -111,7 +111,7 @@ public class CommonController {
             params.put("parent", parent);
         }
         List<String> data = commonService.getOption(params);
-        return R.ok().put("data", data);
+        return Result.ok().put("data", data);
     }
 
     /**
@@ -120,13 +120,13 @@ public class CommonController {
      */
     @IgnoreAuth
     @RequestMapping("/follow/{tableName}/{columnName}")
-    public R getFollowByOption(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName, @RequestParam String columnValue) {
+    public Result getFollowByOption(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName, @RequestParam String columnValue) {
         Map<String, Object> params = new HashMap<>();
         params.put("table", tableName);
         params.put("column", columnName);
         params.put("columnValue", columnValue);
         Map<String, Object> result = commonService.getFollowByOption(params);
-        return R.ok().put("data", result);
+        return Result.ok().put("data", result);
     }
 
     /**
@@ -134,10 +134,10 @@ public class CommonController {
      *
      */
     @RequestMapping("/sh/{tableName}")
-    public R sh(@PathVariable("tableName") String tableName, @RequestBody Map<String, Object> map) {
+    public Result sh(@PathVariable("tableName") String tableName, @RequestBody Map<String, Object> map) {
         map.put("table", tableName);
         commonService.sh(map);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
@@ -151,8 +151,8 @@ public class CommonController {
      */
     @IgnoreAuth
     @RequestMapping("/remind/{tableName}/{columnName}/{type}")
-    public R remindCount(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName,
-                         @PathVariable("type") String type, @RequestParam Map<String, Object> map) {
+    public Result remindCount(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName,
+                              @PathVariable("type") String type, @RequestParam Map<String, Object> map) {
         map.put("table", tableName);
         map.put("column", columnName);
         map.put("type", type);
@@ -179,7 +179,7 @@ public class CommonController {
         }
 
         int count = commonService.remindCount(map);
-        return R.ok().put("count", count);
+        return Result.ok().put("count", count);
     }
 
     /**
@@ -187,12 +187,12 @@ public class CommonController {
      */
     @IgnoreAuth
     @RequestMapping("/cal/{tableName}/{columnName}")
-    public R cal(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName) {
+    public Result cal(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName) {
         Map<String, Object> params = new HashMap<>();
         params.put("table", tableName);
         params.put("column", columnName);
         Map<String, Object> result = commonService.selectCal(params);
-        return R.ok().put("data", result);
+        return Result.ok().put("data", result);
     }
 
     /**
@@ -200,7 +200,7 @@ public class CommonController {
      */
     @IgnoreAuth
     @RequestMapping("/group/{tableName}/{columnName}")
-    public R group(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName) {
+    public Result group(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName) {
         Map<String, Object> params = new HashMap<>();
         params.put("table", tableName);
         params.put("column", columnName);
@@ -213,7 +213,7 @@ public class CommonController {
                 }
             }
         }
-        return R.ok().put("data", result);
+        return Result.ok().put("data", result);
     }
 
     /**
@@ -221,7 +221,7 @@ public class CommonController {
      */
     @IgnoreAuth
     @RequestMapping("/value/{tableName}/{xColumnName}/{yColumnName}")
-    public R value(@PathVariable("tableName") String tableName, @PathVariable("yColumnName") String yColumnName, @PathVariable("xColumnName") String xColumnName) {
+    public Result value(@PathVariable("tableName") String tableName, @PathVariable("yColumnName") String yColumnName, @PathVariable("xColumnName") String xColumnName) {
         Map<String, Object> params = new HashMap<>();
         params.put("table", tableName);
         params.put("xColumn", xColumnName);
@@ -235,7 +235,7 @@ public class CommonController {
                 }
             }
         }
-        return R.ok().put("data", result);
+        return Result.ok().put("data", result);
     }
 
 }

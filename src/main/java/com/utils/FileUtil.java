@@ -7,7 +7,10 @@ import java.io.*;
  */
 
 public class FileUtil {
-    public static byte[] FileToByte(File file) throws IOException {
+
+    private FileUtil(){}
+
+    public static byte[] fileToByte(File file) throws IOException {
         // 将数据转为流
         @SuppressWarnings("resource")
         InputStream content = new FileInputStream(file);
