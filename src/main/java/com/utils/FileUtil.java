@@ -1,6 +1,9 @@
 package com.utils;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 
 /**
@@ -11,7 +14,7 @@ public class FileUtil {
     private FileUtil() {
     }
 
-    public static byte[] FileToByte(File file) throws IOException {
+    public static byte[] fileToByte(File file) throws IOException {
         // 将数据转为流
         @SuppressWarnings("resource")
         InputStream content = Files.newInputStream(file.toPath());
