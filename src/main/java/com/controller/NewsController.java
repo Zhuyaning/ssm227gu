@@ -8,7 +8,7 @@ import com.entity.view.NewsView;
 import com.service.NewsService;
 import com.utils.MPUtil;
 import com.utils.PageUtils;
-import com.utils.R;
+import com.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,12 +36,12 @@ public class NewsController {
      * 后端列表
      */
     @RequestMapping("/page")
-    public R page(@RequestParam Map<String, Object> params, NewsEntity news,
-                  HttpServletRequest request) {
+    public Result page(@RequestParam Map<String, Object> params, NewsEntity news,
+                       HttpServletRequest request) {
 
         EntityWrapper<NewsEntity> ew = new EntityWrapper<>();
         PageUtils page = newsService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, news), params), params));
-        return R.ok().put("data", page);
+        return Result.ok().put("data", page);
     }
 
     /**
@@ -49,41 +49,41 @@ public class NewsController {
      */
     @IgnoreAuth
     @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params, NewsEntity news,
-                  HttpServletRequest request) {
+    public Result list(@RequestParam Map<String, Object> params, NewsEntity news,
+                       HttpServletRequest request) {
         EntityWrapper<NewsEntity> ew = new EntityWrapper<>();
         PageUtils page = newsService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, news), params), params));
-        return R.ok().put("data", page);
+        return Result.ok().put("data", page);
     }
 
     /**
      * 列表
      */
     @RequestMapping("/lists")
-    public R list(NewsEntity news) {
+    public Result list(NewsEntity news) {
         EntityWrapper<NewsEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(news, "news"));
-        return R.ok().put("data", newsService.selectListView(ew));
+        return Result.ok().put("data", newsService.selectListView(ew));
     }
 
     /**
      * 查询
      */
     @RequestMapping("/query")
-    public R query(NewsEntity news) {
+    public Result query(NewsEntity news) {
         EntityWrapper<NewsEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(news, "news"));
         NewsView newsView = newsService.selectView(ew);
-        return R.ok("查询系统资讯成功").put("data", newsView);
+        return Result.ok("查询系统资讯成功").put("data", newsView);
     }
 
     /**
      * 后端详情
      */
     @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id) {
+    public Result info(@PathVariable("id") Long id) {
         NewsEntity news = newsService.selectById(id);
-        return R.ok().put("data", news);
+        return Result.ok().put("data", news);
     }
 
     /**
@@ -91,9 +91,9 @@ public class NewsController {
      */
     @IgnoreAuth
     @RequestMapping("/detail/{id}")
-    public R detail(@PathVariable("id") Long id) {
+    public Result detail(@PathVariable("id") Long id) {
         NewsEntity news = newsService.selectById(id);
-        return R.ok().put("data", news);
+        return Result.ok().put("data", news);
     }
 
 
@@ -101,34 +101,34 @@ public class NewsController {
      * 后端保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody NewsEntity news) {
+    public Result save(@RequestBody NewsEntity news) {
         news.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
         //ValidatorUtils.validateEntity(news);
 
         newsService.insert(news);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 前端保存
      */
     @RequestMapping("/add")
-    public R add(@RequestBody NewsEntity news, HttpServletRequest request) {
+    public Result add(@RequestBody NewsEntity news, HttpServletRequest request) {
         news.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
         //ValidatorUtils.validateEntity(news);
 
         newsService.insert(news);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody NewsEntity news) {
+    public Result update(@RequestBody NewsEntity news) {
         //ValidatorUtils.validateEntity(news);
         newsService.updateById(news);//全部更新
-        return R.ok();
+        return Result.ok();
     }
 
 
@@ -136,17 +136,17 @@ public class NewsController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids) {
+    public Result delete(@RequestBody Long[] ids) {
         newsService.deleteBatchIds(Arrays.asList(ids));
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 提醒接口
      */
     @RequestMapping("/remind/{columnName}/{type}")
-    public R remindCount(@PathVariable("columnName") String columnName,
-                         @PathVariable("type") String type, @RequestParam Map<String, Object> map) {
+    public Result remindCount(@PathVariable("columnName") String columnName,
+                              @PathVariable("type") String type, @RequestParam Map<String, Object> map) {
         map.put("column", columnName);
         map.put("type", type);
 
@@ -181,7 +181,7 @@ public class NewsController {
 
 
         int count = newsService.selectCount(wrapper);
-        return R.ok().put("count", count);
+        return Result.ok().put("count", count);
     }
 
 

@@ -7,7 +7,7 @@ import com.entity.view.ShangpinfenleiView;
 import com.service.ShangpinfenleiService;
 import com.utils.MPUtil;
 import com.utils.PageUtils;
-import com.utils.R;
+import com.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,62 +35,62 @@ public class ShangpinfenleiController {
      * 后端列表
      */
     @RequestMapping("/page")
-    public R page(@RequestParam Map<String, Object> params, ShangpinfenleiEntity shangpinfenlei,
-                  HttpServletRequest request) {
+    public Result page(@RequestParam Map<String, Object> params, ShangpinfenleiEntity shangpinfenlei,
+                       HttpServletRequest request) {
 
         EntityWrapper<ShangpinfenleiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinfenleiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinfenlei), params), params));
-        return R.ok().put("data", page);
+        return Result.ok().put("data", page);
     }
 
     /**
      * 前端列表
      */
     @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params, ShangpinfenleiEntity shangpinfenlei,
-                  HttpServletRequest request) {
+    public Result list(@RequestParam Map<String, Object> params, ShangpinfenleiEntity shangpinfenlei,
+                       HttpServletRequest request) {
         EntityWrapper<ShangpinfenleiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinfenleiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinfenlei), params), params));
-        return R.ok().put("data", page);
+        return Result.ok().put("data", page);
     }
 
     /**
      * 列表
      */
     @RequestMapping("/lists")
-    public R list(ShangpinfenleiEntity shangpinfenlei) {
+    public Result list(ShangpinfenleiEntity shangpinfenlei) {
         EntityWrapper<ShangpinfenleiEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(shangpinfenlei, "shangpinfenlei"));
-        return R.ok().put("data", shangpinfenleiService.selectListView(ew));
+        return Result.ok().put("data", shangpinfenleiService.selectListView(ew));
     }
 
     /**
      * 查询
      */
     @RequestMapping("/query")
-    public R query(ShangpinfenleiEntity shangpinfenlei) {
+    public Result query(ShangpinfenleiEntity shangpinfenlei) {
         EntityWrapper<ShangpinfenleiEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(shangpinfenlei, "shangpinfenlei"));
         ShangpinfenleiView shangpinfenleiView = shangpinfenleiService.selectView(ew);
-        return R.ok("查询商品分类成功").put("data", shangpinfenleiView);
+        return Result.ok("查询商品分类成功").put("data", shangpinfenleiView);
     }
 
     /**
      * 后端详情
      */
     @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id) {
+    public Result info(@PathVariable("id") Long id) {
         ShangpinfenleiEntity shangpinfenlei = shangpinfenleiService.selectById(id);
-        return R.ok().put("data", shangpinfenlei);
+        return Result.ok().put("data", shangpinfenlei);
     }
 
     /**
      * 前端详情
      */
     @RequestMapping("/detail/{id}")
-    public R detail(@PathVariable("id") Long id) {
+    public Result detail(@PathVariable("id") Long id) {
         ShangpinfenleiEntity shangpinfenlei = shangpinfenleiService.selectById(id);
-        return R.ok().put("data", shangpinfenlei);
+        return Result.ok().put("data", shangpinfenlei);
     }
 
 
@@ -98,34 +98,34 @@ public class ShangpinfenleiController {
      * 后端保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
+    public Result save(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
         shangpinfenlei.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
         //ValidatorUtils.validateEntity(shangpinfenlei);
 
         shangpinfenleiService.insert(shangpinfenlei);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 前端保存
      */
     @RequestMapping("/add")
-    public R add(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
+    public Result add(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
         shangpinfenlei.setId((long) (new Date().getTime() + Math.floor(Math.random() * 1000)));
         //ValidatorUtils.validateEntity(shangpinfenlei);
 
         shangpinfenleiService.insert(shangpinfenlei);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
+    public Result update(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
         //ValidatorUtils.validateEntity(shangpinfenlei);
         shangpinfenleiService.updateById(shangpinfenlei);//全部更新
-        return R.ok();
+        return Result.ok();
     }
 
 
@@ -133,17 +133,17 @@ public class ShangpinfenleiController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids) {
+    public Result delete(@RequestBody Long[] ids) {
         shangpinfenleiService.deleteBatchIds(Arrays.asList(ids));
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 提醒接口
      */
     @RequestMapping("/remind/{columnName}/{type}")
-    public R remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request,
-                         @PathVariable("type") String type, @RequestParam Map<String, Object> map) {
+    public Result remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request,
+                              @PathVariable("type") String type, @RequestParam Map<String, Object> map) {
         map.put("column", columnName);
         map.put("type", type);
 
@@ -178,7 +178,7 @@ public class ShangpinfenleiController {
 
 
         int count = shangpinfenleiService.selectCount(wrapper);
-        return R.ok().put("count", count);
+        return Result.ok().put("count", count);
     }
 
 

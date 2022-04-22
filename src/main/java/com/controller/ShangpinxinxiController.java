@@ -8,7 +8,7 @@ import com.entity.view.ShangpinxinxiView;
 import com.service.ShangpinxinxiService;
 import com.utils.MPUtil;
 import com.utils.PageUtils;
-import com.utils.R;
+import com.utils.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,12 +38,12 @@ public class ShangpinxinxiController {
      * 后端列表
      */
     @RequestMapping("/page")
-    public R page(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi,
-                  HttpServletRequest request) {
+    public Result page(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi,
+                       HttpServletRequest request) {
 
         EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinxinxiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinxinxi), params), params));
-        return R.ok().put("data", page);
+        return Result.ok().put("data", page);
     }
 
     /**
@@ -51,44 +51,44 @@ public class ShangpinxinxiController {
      */
     @IgnoreAuth
     @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi,
-                  HttpServletRequest request) {
+    public Result list(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi,
+                       HttpServletRequest request) {
         EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<ShangpinxinxiEntity>();
         PageUtils page = shangpinxinxiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinxinxi), params), params));
-        return R.ok().put("data", page);
+        return Result.ok().put("data", page);
     }
 
     /**
      * 列表
      */
     @RequestMapping("/lists")
-    public R list(ShangpinxinxiEntity shangpinxinxi) {
+    public Result list(ShangpinxinxiEntity shangpinxinxi) {
         EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<ShangpinxinxiEntity>();
         ew.allEq(MPUtil.allEQMapPre(shangpinxinxi, "shangpinxinxi"));
-        return R.ok().put("data", shangpinxinxiService.selectListView(ew));
+        return Result.ok().put("data", shangpinxinxiService.selectListView(ew));
     }
 
     /**
      * 查询
      */
     @RequestMapping("/query")
-    public R query(ShangpinxinxiEntity shangpinxinxi) {
+    public Result query(ShangpinxinxiEntity shangpinxinxi) {
         EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<ShangpinxinxiEntity>();
         ew.allEq(MPUtil.allEQMapPre(shangpinxinxi, "shangpinxinxi"));
         ShangpinxinxiView shangpinxinxiView = shangpinxinxiService.selectView(ew);
-        return R.ok("查询商品信息成功").put("data", shangpinxinxiView);
+        return Result.ok("查询商品信息成功").put("data", shangpinxinxiView);
     }
 
     /**
      * 后端详情
      */
     @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id) {
+    public Result info(@PathVariable("id") Long id) {
         ShangpinxinxiEntity shangpinxinxi = shangpinxinxiService.selectById(id);
         shangpinxinxi.setClicknum(shangpinxinxi.getClicknum() + 1);
         shangpinxinxi.setClicktime(new Date());
         shangpinxinxiService.updateById(shangpinxinxi);
-        return R.ok().put("data", shangpinxinxi);
+        return Result.ok().put("data", shangpinxinxi);
     }
 
     /**
@@ -96,12 +96,12 @@ public class ShangpinxinxiController {
      */
     @IgnoreAuth
     @RequestMapping("/detail/{id}")
-    public R detail(@PathVariable("id") Long id) {
+    public Result detail(@PathVariable("id") Long id) {
         ShangpinxinxiEntity shangpinxinxi = shangpinxinxiService.selectById(id);
         shangpinxinxi.setClicknum(shangpinxinxi.getClicknum() + 1);
         shangpinxinxi.setClicktime(new Date());
         shangpinxinxiService.updateById(shangpinxinxi);
-        return R.ok().put("data", shangpinxinxi);
+        return Result.ok().put("data", shangpinxinxi);
     }
 
 
@@ -109,34 +109,34 @@ public class ShangpinxinxiController {
      * 后端保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request) {
+    public Result save(@RequestBody ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request) {
         shangpinxinxi.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
         //ValidatorUtils.validateEntity(shangpinxinxi);
 
         shangpinxinxiService.insert(shangpinxinxi);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 前端保存
      */
     @RequestMapping("/add")
-    public R add(@RequestBody ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request) {
+    public Result add(@RequestBody ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request) {
         shangpinxinxi.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
         //ValidatorUtils.validateEntity(shangpinxinxi);
 
         shangpinxinxiService.insert(shangpinxinxi);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request) {
+    public Result update(@RequestBody ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request) {
         //ValidatorUtils.validateEntity(shangpinxinxi);
         shangpinxinxiService.updateById(shangpinxinxi);//全部更新
-        return R.ok();
+        return Result.ok();
     }
 
 
@@ -144,17 +144,17 @@ public class ShangpinxinxiController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids) {
+    public Result delete(@RequestBody Long[] ids) {
         shangpinxinxiService.deleteBatchIds(Arrays.asList(ids));
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 提醒接口
      */
     @RequestMapping("/remind/{columnName}/{type}")
-    public R remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request,
-                         @PathVariable("type") String type, @RequestParam Map<String, Object> map) {
+    public Result remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request,
+                              @PathVariable("type") String type, @RequestParam Map<String, Object> map) {
         map.put("column", columnName);
         map.put("type", type);
 
@@ -189,7 +189,7 @@ public class ShangpinxinxiController {
 
 
         int count = shangpinxinxiService.selectCount(wrapper);
-        return R.ok().put("count", count);
+        return Result.ok().put("count", count);
     }
 
     /**
@@ -197,7 +197,7 @@ public class ShangpinxinxiController {
      */
     @IgnoreAuth
     @RequestMapping("/autoSort")
-    public R autoSort(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request, String pre) {
+    public Result autoSort(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request, String pre) {
         EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<ShangpinxinxiEntity>();
         Map<String, Object> newMap = new HashMap<String, Object>();
         Map<String, Object> param = new HashMap<String, Object>();
@@ -218,7 +218,7 @@ public class ShangpinxinxiController {
 
         params.put("order", "desc");
         PageUtils page = shangpinxinxiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinxinxi), params), params));
-        return R.ok().put("data", page);
+        return Result.ok().put("data", page);
     }
 
 
