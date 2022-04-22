@@ -1,18 +1,22 @@
 package com.utils;
 
 import java.io.*;
+import java.nio.file.Files;
 
 /**
  * 类说明 :
  */
 
 public class FileUtil {
+    private FileUtil() {
+    }
+
     public static byte[] FileToByte(File file) throws IOException {
         // 将数据转为流
         @SuppressWarnings("resource")
-        InputStream content = new FileInputStream(file);
+        InputStream content = Files.newInputStream(file.toPath());
         ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
-        byte[] buff = new byte[100];
+        byte[] buff = new byte[1000];
         int rc = 0;
         while ((rc = content.read(buff, 0, 100)) > 0) {
             swapStream.write(buff, 0, rc);
