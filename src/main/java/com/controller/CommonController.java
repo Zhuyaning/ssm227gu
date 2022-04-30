@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -75,8 +74,8 @@ public class CommonController {
         }
         JSONObject res = null;
         try {
-            File file1 = new File(request.getSession().getServletContext().getRealPath("/upload") + "/" + face1);
-            File file2 = new File(request.getSession().getServletContext().getRealPath("/upload") + "/" + face2);
+            File file1 = new File(request.getSession().getServletContext().getRealPath("/upload") + File.separator + face1);
+            File file2 = new File(request.getSession().getServletContext().getRealPath("/upload") + File.separator + face2);
             String img1 = Base64Util.encode(FileUtil.fileToByte(file1));
             String img2 = Base64Util.encode(FileUtil.fileToByte(file2));
             MatchRequest req1 = new MatchRequest(img1, "BASE64");
@@ -97,7 +96,6 @@ public class CommonController {
 
     /**
      * 获取table表中的column列表(联动接口)
-     *
      */
     @IgnoreAuth
     @RequestMapping("/option/{tableName}/{columnName}")
@@ -117,7 +115,6 @@ public class CommonController {
 
     /**
      * 根据table中的column获取单条记录
-     *
      */
     @IgnoreAuth
     @RequestMapping("/follow/{tableName}/{columnName}")
@@ -132,7 +129,6 @@ public class CommonController {
 
     /**
      * 修改table表的sfsh状态
-     *
      */
     @RequestMapping("/sh/{tableName}")
     public Result sh(@PathVariable("tableName") String tableName, @RequestBody Map<String, Object> map) {
