@@ -1,4 +1,3 @@
-
 package com.controller;
 
 
@@ -36,12 +35,12 @@ public class UserController {
      */
     @IgnoreAuth
     @PostMapping(value = "/login")
-    public Result login(String username, String password) {
-        UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username));
-        if (user == null || !user.getPassword().equals(password)) {
+    public Result login(@RequestBody UserEntity userEntity) {
+        UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", userEntity.getUsername()));
+        if (user == null || !user.getPassword().equals(userEntity.getPassword())) {
             return Result.error("账号或密码不正确");
         }
-        String token = tokenService.generateToken(user.getId(), username, "users", user.getRole());
+        String token = tokenService.generateToken(user.getId(), userEntity.getUsername(), "users", user.getRole());
         return Result.ok().put("token", token);
     }
 

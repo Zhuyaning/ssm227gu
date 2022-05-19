@@ -99,4 +99,14 @@ public class PageUtils implements Serializable {
         this.total = total;
     }
 
+    @Override
+    public String toString() {
+        return "PageUtils{" +
+                "total=" + total +
+                ", pageSize=" + pageSize +
+                ", totalPage=" + totalPage +
+                ", currPage=" + currPage +
+                ", list=" + list +
+                '}';
+    }
 }
