@@ -34,7 +34,7 @@ layui.define(['jquery', 'layer'], function(exports) { //提示：模块也可以
 				dataType: 'json',
 				type: type,
 				success: function(result, status, xhr) {
-					if (result.code == 0) {
+					if (result.code == 200) {
 						callback(result);
 					} else if (result.code == 401 || result.code == 403) {
 						window.parent.location.href = '../login/login.html';
@@ -81,7 +81,7 @@ layui.define(['jquery', 'layer'], function(exports) { //提示：模块也可以
 				dataType: 'json',
 				type: type,
 				success: function(result, status, xhr) {
-					if (result.code == 0) {
+					if (result.code == 200) {
 						callback(result);
 					} else if (result.code == 401 || result.code == 403) {
 						window.parent.location.href = '../login/login.html';
