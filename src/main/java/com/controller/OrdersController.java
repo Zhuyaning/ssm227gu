@@ -52,7 +52,7 @@ public class OrdersController {
     @RequestMapping("/list")
     public Result list(@RequestParam Map<String, Object> params, OrdersEntity orders,
                        HttpServletRequest request) {
-        EntityWrapper<OrdersEntity> ew = new EntityWrapper<OrdersEntity>();
+        EntityWrapper<OrdersEntity> ew = new EntityWrapper<>();
         PageUtils page = ordersService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, orders), params), params));
         return Result.ok().put("data", page);
     }
@@ -62,7 +62,7 @@ public class OrdersController {
      */
     @RequestMapping("/lists")
     public Result list(OrdersEntity orders) {
-        EntityWrapper<OrdersEntity> ew = new EntityWrapper<OrdersEntity>();
+        EntityWrapper<OrdersEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(orders, "orders"));
         return Result.ok().put("data", ordersService.selectListView(ew));
     }
@@ -72,7 +72,7 @@ public class OrdersController {
      */
     @RequestMapping("/query")
     public Result query(OrdersEntity orders) {
-        EntityWrapper<OrdersEntity> ew = new EntityWrapper<OrdersEntity>();
+        EntityWrapper<OrdersEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(orders, "orders"));
         OrdersView ordersView = ordersService.selectView(ew);
         return Result.ok("查询订单成功").put("data", ordersView);
@@ -103,7 +103,6 @@ public class OrdersController {
     @RequestMapping("/save")
     public Result save(@RequestBody OrdersEntity orders, HttpServletRequest request) {
         orders.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(orders);
         orders.setUserid((Long) request.getSession().getAttribute("userId"));
 
         ordersService.insert(orders);
@@ -116,8 +115,6 @@ public class OrdersController {
     @RequestMapping("/add")
     public Result add(@RequestBody OrdersEntity orders, HttpServletRequest request) {
         orders.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(orders);
-
         ordersService.insert(orders);
         return Result.ok();
     }
@@ -127,7 +124,6 @@ public class OrdersController {
      */
     @RequestMapping("/update")
     public Result update(@RequestBody OrdersEntity orders, HttpServletRequest request) {
-        //ValidatorUtils.validateEntity(orders);
         ordersService.updateById(orders);//全部更新
         return Result.ok();
     }
@@ -157,14 +153,14 @@ public class OrdersController {
             Date remindStartDate = null;
             Date remindEndDate = null;
             if (map.get("remindstart") != null) {
-                Integer remindStart = Integer.parseInt(map.get("remindstart").toString());
+                int remindStart = Integer.parseInt(map.get("remindstart").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindStart);
                 remindStartDate = c.getTime();
                 map.put("remindstart", sdf.format(remindStartDate));
             }
             if (map.get("remindend") != null) {
-                Integer remindEnd = Integer.parseInt(map.get("remindend").toString());
+                int remindEnd = Integer.parseInt(map.get("remindend").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindEnd);
                 remindEndDate = c.getTime();
@@ -172,7 +168,7 @@ public class OrdersController {
             }
         }
 
-        Wrapper<OrdersEntity> wrapper = new EntityWrapper<OrdersEntity>();
+        Wrapper<OrdersEntity> wrapper = new EntityWrapper<>();
         if (map.get("remindstart") != null) {
             wrapper.ge(columnName, map.get("remindstart"));
         }
@@ -180,7 +176,7 @@ public class OrdersController {
             wrapper.le(columnName, map.get("remindend"));
         }
         if (!request.getSession().getAttribute("role").toString().equals("管理员")) {
-            wrapper.eq("userid", (Long) request.getSession().getAttribute("userId"));
+            wrapper.eq("userid", request.getSession().getAttribute("userId"));
         }
 
 

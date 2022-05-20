@@ -107,7 +107,6 @@ public class AddressController {
     @RequestMapping("/save")
     public Result save(@RequestBody AddressEntity address, HttpServletRequest request) {
         address.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(address);
         address.setUserid((Long) request.getSession().getAttribute("userId"));
         Long userId = (Long) request.getSession().getAttribute("userId");
         if (address.getIsdefault().equals("是")) {
@@ -125,7 +124,6 @@ public class AddressController {
     @RequestMapping("/add")
     public Result add(@RequestBody AddressEntity address, HttpServletRequest request) {
         address.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(address);
         address.setUserid((Long) request.getSession().getAttribute("userId"));
         Long userId = (Long) request.getSession().getAttribute("userId");
         if (address.getIsdefault().equals("是")) {
@@ -142,7 +140,6 @@ public class AddressController {
      */
     @RequestMapping("/update")
     public Result update(@RequestBody AddressEntity address, HttpServletRequest request) {
-        //ValidatorUtils.validateEntity(address);
         if (address.getIsdefault().equals("是")) {
             addressService.updateForSet("isdefault='否'", new EntityWrapper<AddressEntity>().eq("userid", request.getSession().getAttribute("userId")));
         }

@@ -107,7 +107,6 @@ public class StoreupController {
     @RequestMapping("/save")
     public Result save(@RequestBody StoreupEntity storeup, HttpServletRequest request) {
         storeup.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(storeup);
         storeup.setUserid((Long) request.getSession().getAttribute("userId"));
 
         storeupService.insert(storeup);
@@ -120,7 +119,6 @@ public class StoreupController {
     @RequestMapping("/add")
     public Result add(@RequestBody StoreupEntity storeup, HttpServletRequest request) {
         storeup.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(storeup);
         storeup.setUserid((Long) request.getSession().getAttribute("userId"));
 
         storeupService.insert(storeup);
@@ -132,7 +130,6 @@ public class StoreupController {
      */
     @RequestMapping("/update")
     public Result update(@RequestBody StoreupEntity storeup) {
-        //ValidatorUtils.validateEntity(storeup);
         storeupService.updateById(storeup);//全部更新
         return Result.ok();
     }

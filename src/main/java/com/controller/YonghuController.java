@@ -58,7 +58,6 @@ public class YonghuController {
     @IgnoreAuth
     @RequestMapping("/register")
     public Result register(@RequestBody YonghuEntity yonghu) {
-        //ValidatorUtils.validateEntity(yonghu);
         YonghuEntity user = yonghuService.selectOne(new EntityWrapper<YonghuEntity>().eq("yonghuzhanghao", yonghu.getYonghuzhanghao()));
         if (user != null) {
             return Result.error("注册用户已存在");
@@ -173,7 +172,6 @@ public class YonghuController {
     @RequestMapping("/save")
     public Result save(@RequestBody YonghuEntity yonghu, HttpServletRequest request) {
         yonghu.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(yonghu);
         YonghuEntity user = yonghuService.selectOne(new EntityWrapper<YonghuEntity>().eq("yonghuzhanghao", yonghu.getYonghuzhanghao()));
         if (user != null) {
             return Result.error("用户已存在");
@@ -190,7 +188,6 @@ public class YonghuController {
     @RequestMapping("/add")
     public Result add(@RequestBody YonghuEntity yonghu, HttpServletRequest request) {
         yonghu.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(yonghu);
         YonghuEntity user = yonghuService.selectOne(new EntityWrapper<YonghuEntity>().eq("yonghuzhanghao", yonghu.getYonghuzhanghao()));
         if (user != null) {
             return Result.error("用户已存在");
@@ -206,7 +203,6 @@ public class YonghuController {
      */
     @RequestMapping("/update")
     public Result update(@RequestBody YonghuEntity yonghu, HttpServletRequest request) {
-        //ValidatorUtils.validateEntity(yonghu);
         yonghuService.updateById(yonghu);//全部更新
         return Result.ok();
     }

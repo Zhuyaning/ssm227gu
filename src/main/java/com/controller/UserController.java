@@ -50,7 +50,6 @@ public class UserController {
     @IgnoreAuth
     @PostMapping(value = "/register")
     public Result register(@RequestBody UserEntity user) {
-//    	ValidatorUtils.validateEntity(user);
         if (userService.selectOne(new EntityWrapper<UserEntity>().eq("username", user.getUsername())) != null) {
             return Result.error("用户已存在");
         }
@@ -72,7 +71,7 @@ public class UserController {
      */
     @IgnoreAuth
     @RequestMapping(value = "/resetPass")
-    public Result resetPass(String username, HttpServletRequest request) {
+    public Result resetPass(String username) {
         UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", username));
         if (user == null) {
             return Result.error("账号不存在");
@@ -87,7 +86,7 @@ public class UserController {
      */
     @RequestMapping("/page")
     public Result page(@RequestParam Map<String, Object> params, UserEntity user) {
-        EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
+        EntityWrapper<UserEntity> ew = new EntityWrapper<>();
         PageUtils page = userService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.allLike(ew, user), params), params));
         return Result.ok().put("data", page);
     }
@@ -97,7 +96,7 @@ public class UserController {
      */
     @RequestMapping("/list")
     public Result list(UserEntity user) {
-        EntityWrapper<UserEntity> ew = new EntityWrapper<UserEntity>();
+        EntityWrapper<UserEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(user, "user"));
         return Result.ok().put("data", userService.selectListView(ew));
     }
@@ -126,7 +125,6 @@ public class UserController {
      */
     @PostMapping("/save")
     public Result save(@RequestBody UserEntity user) {
-//    	ValidatorUtils.validateEntity(user);
         if (userService.selectOne(new EntityWrapper<UserEntity>().eq("username", user.getUsername())) != null) {
             return Result.error("用户已存在");
         }
@@ -139,9 +137,8 @@ public class UserController {
      */
     @RequestMapping("/update")
     public Result update(@RequestBody UserEntity user) {
-//        ValidatorUtils.validateEntity(user);
         UserEntity u = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", user.getUsername()));
-        if (u != null && u.getId() != user.getId() && u.getUsername().equals(user.getUsername())) {
+        if (u != null && !u.getId().equals(user.getId()) && u.getUsername().equals(user.getUsername())) {
             return Result.error("用户名已存在。");
         }
         userService.updateById(user);//全部更新

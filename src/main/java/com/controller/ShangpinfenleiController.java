@@ -100,8 +100,6 @@ public class ShangpinfenleiController {
     @RequestMapping("/save")
     public Result save(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
         shangpinfenlei.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(shangpinfenlei);
-
         shangpinfenleiService.insert(shangpinfenlei);
         return Result.ok();
     }
@@ -112,8 +110,6 @@ public class ShangpinfenleiController {
     @RequestMapping("/add")
     public Result add(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
         shangpinfenlei.setId((long) (new Date().getTime() + Math.floor(Math.random() * 1000)));
-        //ValidatorUtils.validateEntity(shangpinfenlei);
-
         shangpinfenleiService.insert(shangpinfenlei);
         return Result.ok();
     }
@@ -123,7 +119,6 @@ public class ShangpinfenleiController {
      */
     @RequestMapping("/update")
     public Result update(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
-        //ValidatorUtils.validateEntity(shangpinfenlei);
         shangpinfenleiService.updateById(shangpinfenlei);//全部更新
         return Result.ok();
     }
@@ -168,7 +163,7 @@ public class ShangpinfenleiController {
             }
         }
 
-        Wrapper<ShangpinfenleiEntity> wrapper = new EntityWrapper<ShangpinfenleiEntity>();
+        Wrapper<ShangpinfenleiEntity> wrapper = new EntityWrapper<>();
         if (map.get("remindstart") != null) {
             wrapper.ge(columnName, map.get("remindstart"));
         }

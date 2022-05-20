@@ -21,29 +21,29 @@ import java.util.*;
 /**
  * 商品信息
  * 后端接口
- *
- * @author
- * @email
- * @date 2021-04-21 18:51:06
  */
 @RestController
 @CrossOrigin
 @RequestMapping("/shangpinxinxi")
 public class ShangpinxinxiController {
-    @Autowired
+
+
     private ShangpinxinxiService shangpinxinxiService;
 
+    @Autowired
+    public ShangpinxinxiController(ShangpinxinxiService shangpinxinxiService) {
+        this.shangpinxinxiService = shangpinxinxiService;
+    }
 
     /**
      * 后端列表
      */
     @RequestMapping("/page")
-    public Result page(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi,
-                       HttpServletRequest request) {
+    public Result page(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi) {
 
         EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinxinxiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinxinxi), params), params));
-        return Result.ok().put("data", page);
+        return Result.ok().put("productList", page);
     }
 
     /**
@@ -51,9 +51,8 @@ public class ShangpinxinxiController {
      */
     @IgnoreAuth
     @RequestMapping("/list")
-    public Result list(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi,
-                       HttpServletRequest request) {
-        EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<ShangpinxinxiEntity>();
+    public Result list(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi) {
+        EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinxinxiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinxinxi), params), params));
         return Result.ok().put("data", page);
     }
@@ -63,7 +62,7 @@ public class ShangpinxinxiController {
      */
     @RequestMapping("/lists")
     public Result list(ShangpinxinxiEntity shangpinxinxi) {
-        EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<ShangpinxinxiEntity>();
+        EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(shangpinxinxi, "shangpinxinxi"));
         return Result.ok().put("data", shangpinxinxiService.selectListView(ew));
     }
@@ -73,7 +72,7 @@ public class ShangpinxinxiController {
      */
     @RequestMapping("/query")
     public Result query(ShangpinxinxiEntity shangpinxinxi) {
-        EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<ShangpinxinxiEntity>();
+        EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(shangpinxinxi, "shangpinxinxi"));
         ShangpinxinxiView shangpinxinxiView = shangpinxinxiService.selectView(ew);
         return Result.ok("查询商品信息成功").put("data", shangpinxinxiView);
@@ -111,8 +110,6 @@ public class ShangpinxinxiController {
     @RequestMapping("/save")
     public Result save(@RequestBody ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request) {
         shangpinxinxi.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(shangpinxinxi);
-
         shangpinxinxiService.insert(shangpinxinxi);
         return Result.ok();
     }
@@ -121,10 +118,8 @@ public class ShangpinxinxiController {
      * 前端保存
      */
     @RequestMapping("/add")
-    public Result add(@RequestBody ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request) {
+    public Result add(@RequestBody ShangpinxinxiEntity shangpinxinxi) {
         shangpinxinxi.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(shangpinxinxi);
-
         shangpinxinxiService.insert(shangpinxinxi);
         return Result.ok();
     }
@@ -134,7 +129,6 @@ public class ShangpinxinxiController {
      */
     @RequestMapping("/update")
     public Result update(@RequestBody ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request) {
-        //ValidatorUtils.validateEntity(shangpinxinxi);
         shangpinxinxiService.updateById(shangpinxinxi);//全部更新
         return Result.ok();
     }
@@ -164,14 +158,14 @@ public class ShangpinxinxiController {
             Date remindStartDate = null;
             Date remindEndDate = null;
             if (map.get("remindstart") != null) {
-                Integer remindStart = Integer.parseInt(map.get("remindstart").toString());
+                int remindStart = Integer.parseInt(map.get("remindstart").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindStart);
                 remindStartDate = c.getTime();
                 map.put("remindstart", sdf.format(remindStartDate));
             }
             if (map.get("remindend") != null) {
-                Integer remindEnd = Integer.parseInt(map.get("remindend").toString());
+                int remindEnd = Integer.parseInt(map.get("remindend").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindEnd);
                 remindEndDate = c.getTime();
@@ -179,7 +173,7 @@ public class ShangpinxinxiController {
             }
         }
 
-        Wrapper<ShangpinxinxiEntity> wrapper = new EntityWrapper<ShangpinxinxiEntity>();
+        Wrapper<ShangpinxinxiEntity> wrapper = new EntityWrapper<>();
         if (map.get("remindstart") != null) {
             wrapper.ge(columnName, map.get("remindstart"));
         }
@@ -198,12 +192,10 @@ public class ShangpinxinxiController {
     @IgnoreAuth
     @RequestMapping("/autoSort")
     public Result autoSort(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request, String pre) {
-        EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<ShangpinxinxiEntity>();
-        Map<String, Object> newMap = new HashMap<String, Object>();
-        Map<String, Object> param = new HashMap<String, Object>();
-        Iterator<Map.Entry<String, Object>> it = param.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, Object> entry = it.next();
+        EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<>();
+        Map<String, Object> newMap = new HashMap<>();
+        Map<String, Object> param = new HashMap<>();
+        for (Map.Entry<String, Object> entry : param.entrySet()) {
             String key = entry.getKey();
             String newKey = entry.getKey();
             if (pre.endsWith(".")) {

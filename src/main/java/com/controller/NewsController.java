@@ -103,8 +103,6 @@ public class NewsController {
     @RequestMapping("/save")
     public Result save(@RequestBody NewsEntity news) {
         news.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(news);
-
         newsService.insert(news);
         return Result.ok();
     }
@@ -115,8 +113,6 @@ public class NewsController {
     @RequestMapping("/add")
     public Result add(@RequestBody NewsEntity news, HttpServletRequest request) {
         news.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(news);
-
         newsService.insert(news);
         return Result.ok();
     }
@@ -126,7 +122,6 @@ public class NewsController {
      */
     @RequestMapping("/update")
     public Result update(@RequestBody NewsEntity news) {
-        //ValidatorUtils.validateEntity(news);
         newsService.updateById(news);//全部更新
         return Result.ok();
     }

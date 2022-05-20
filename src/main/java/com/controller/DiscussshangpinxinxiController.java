@@ -40,7 +40,7 @@ public class DiscussshangpinxinxiController {
     public Result page(@RequestParam Map<String, Object> params, DiscussshangpinxinxiEntity discussshangpinxinxi,
                        HttpServletRequest request) {
 
-        EntityWrapper<DiscussshangpinxinxiEntity> ew = new EntityWrapper<DiscussshangpinxinxiEntity>();
+        EntityWrapper<DiscussshangpinxinxiEntity> ew = new EntityWrapper<>();
         PageUtils page = discussshangpinxinxiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, discussshangpinxinxi), params), params));
         return Result.ok().put("data", page);
     }
@@ -52,7 +52,7 @@ public class DiscussshangpinxinxiController {
     @RequestMapping("/list")
     public Result list(@RequestParam Map<String, Object> params, DiscussshangpinxinxiEntity discussshangpinxinxi,
                        HttpServletRequest request) {
-        EntityWrapper<DiscussshangpinxinxiEntity> ew = new EntityWrapper<DiscussshangpinxinxiEntity>();
+        EntityWrapper<DiscussshangpinxinxiEntity> ew = new EntityWrapper<>();
         PageUtils page = discussshangpinxinxiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, discussshangpinxinxi), params), params));
         return Result.ok().put("data", page);
     }
@@ -62,7 +62,7 @@ public class DiscussshangpinxinxiController {
      */
     @RequestMapping("/lists")
     public Result list(DiscussshangpinxinxiEntity discussshangpinxinxi) {
-        EntityWrapper<DiscussshangpinxinxiEntity> ew = new EntityWrapper<DiscussshangpinxinxiEntity>();
+        EntityWrapper<DiscussshangpinxinxiEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(discussshangpinxinxi, "discussshangpinxinxi"));
         return Result.ok().put("data", discussshangpinxinxiService.selectListView(ew));
     }
@@ -72,7 +72,7 @@ public class DiscussshangpinxinxiController {
      */
     @RequestMapping("/query")
     public Result query(DiscussshangpinxinxiEntity discussshangpinxinxi) {
-        EntityWrapper<DiscussshangpinxinxiEntity> ew = new EntityWrapper<DiscussshangpinxinxiEntity>();
+        EntityWrapper<DiscussshangpinxinxiEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(discussshangpinxinxi, "discussshangpinxinxi"));
         DiscussshangpinxinxiView discussshangpinxinxiView = discussshangpinxinxiService.selectView(ew);
         return Result.ok("查询商品信息评论表成功").put("data", discussshangpinxinxiView);
@@ -103,8 +103,6 @@ public class DiscussshangpinxinxiController {
     @RequestMapping("/save")
     public Result save(@RequestBody DiscussshangpinxinxiEntity discussshangpinxinxi, HttpServletRequest request) {
         discussshangpinxinxi.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(discussshangpinxinxi);
-
         discussshangpinxinxiService.insert(discussshangpinxinxi);
         return Result.ok();
     }
@@ -115,8 +113,6 @@ public class DiscussshangpinxinxiController {
     @RequestMapping("/add")
     public Result add(@RequestBody DiscussshangpinxinxiEntity discussshangpinxinxi, HttpServletRequest request) {
         discussshangpinxinxi.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(discussshangpinxinxi);
-
         discussshangpinxinxiService.insert(discussshangpinxinxi);
         return Result.ok();
     }
@@ -125,8 +121,7 @@ public class DiscussshangpinxinxiController {
      * 修改
      */
     @RequestMapping("/update")
-    public Result update(@RequestBody DiscussshangpinxinxiEntity discussshangpinxinxi, HttpServletRequest request) {
-        //ValidatorUtils.validateEntity(discussshangpinxinxi);
+    public Result update(@RequestBody DiscussshangpinxinxiEntity discussshangpinxinxi) {
         discussshangpinxinxiService.updateById(discussshangpinxinxi);//全部更新
         return Result.ok();
     }
@@ -156,14 +151,14 @@ public class DiscussshangpinxinxiController {
             Date remindStartDate = null;
             Date remindEndDate = null;
             if (map.get("remindstart") != null) {
-                Integer remindStart = Integer.parseInt(map.get("remindstart").toString());
+                int remindStart = Integer.parseInt(map.get("remindstart").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindStart);
                 remindStartDate = c.getTime();
                 map.put("remindstart", sdf.format(remindStartDate));
             }
             if (map.get("remindend") != null) {
-                Integer remindEnd = Integer.parseInt(map.get("remindend").toString());
+                int remindEnd = Integer.parseInt(map.get("remindend").toString());
                 c.setTime(new Date());
                 c.add(Calendar.DAY_OF_MONTH, remindEnd);
                 remindEndDate = c.getTime();
@@ -171,7 +166,7 @@ public class DiscussshangpinxinxiController {
             }
         }
 
-        Wrapper<DiscussshangpinxinxiEntity> wrapper = new EntityWrapper<DiscussshangpinxinxiEntity>();
+        Wrapper<DiscussshangpinxinxiEntity> wrapper = new EntityWrapper<>();
         if (map.get("remindstart") != null) {
             wrapper.ge(columnName, map.get("remindstart"));
         }

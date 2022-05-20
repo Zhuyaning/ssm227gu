@@ -111,7 +111,6 @@ public class CartController {
     @RequestMapping("/save")
     public Result save(@RequestBody CartEntity cart, HttpServletRequest request) {
         cart.setId((long) (new Date().getTime() + Math.floor(Math.random() * 1000)));
-        //ValidatorUtils.validateEntity(cart);
         cart.setUserid((Long) request.getSession().getAttribute(USER_ID));
 
         cartService.insert(cart);
@@ -124,8 +123,6 @@ public class CartController {
     @RequestMapping("/add")
     public Result add(@RequestBody CartEntity cart, HttpServletRequest request) {
         cart.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        //ValidatorUtils.validateEntity(cart);
-
         cartService.insert(cart);
         return Result.ok();
     }
@@ -135,7 +132,6 @@ public class CartController {
      */
     @RequestMapping("/update")
     public Result update(@RequestBody CartEntity cart) {
-        //ValidatorUtils.validateEntity(cart);
         cartService.updateById(cart);//全部更新
         return Result.ok();
     }

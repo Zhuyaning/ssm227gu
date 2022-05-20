@@ -79,7 +79,6 @@ public class ConfigController {
      */
     @PostMapping("/save")
     public Result save(@RequestBody ConfigEntity config) {
-//    	ValidatorUtils.validateEntity(config);
         configService.insert(config);
         return Result.ok();
     }
@@ -89,7 +88,6 @@ public class ConfigController {
      */
     @RequestMapping("/update")
     public Result update(@RequestBody ConfigEntity config) {
-//        ValidatorUtils.validateEntity(config);
         configService.updateById(config);//全部更新
         return Result.ok();
     }
