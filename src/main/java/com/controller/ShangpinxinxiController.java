@@ -39,7 +39,7 @@ public class ShangpinxinxiController {
      * 后端列表
      */
     @RequestMapping("/page")
-    public Result page(@RequestParam Map<String, Object> params, ShangpinxinxiEntity shangpinxinxi) {
+    public Result page(@RequestParam Map<String, Object> params, @RequestBody ShangpinxinxiEntity shangpinxinxi) {
 
         EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinxinxiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinxinxi), params), params));

@@ -27,17 +27,19 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("/shangpinfenlei")
 public class ShangpinfenleiController {
-    @Autowired
+
     private ShangpinfenleiService shangpinfenleiService;
 
+    @Autowired
+    public ShangpinfenleiController(ShangpinfenleiService shangpinfenleiService) {
+        this.shangpinfenleiService = shangpinfenleiService;
+    }
 
     /**
      * 后端列表
      */
     @RequestMapping("/page")
-    public Result page(@RequestParam Map<String, Object> params, ShangpinfenleiEntity shangpinfenlei,
-                       HttpServletRequest request) {
-
+    public Result page(@RequestParam Map<String, Object> params, ShangpinfenleiEntity shangpinfenlei) {
         EntityWrapper<ShangpinfenleiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinfenleiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinfenlei), params), params));
         return Result.ok().put("data", page);
@@ -47,8 +49,7 @@ public class ShangpinfenleiController {
      * 前端列表
      */
     @RequestMapping("/list")
-    public Result list(@RequestParam Map<String, Object> params, ShangpinfenleiEntity shangpinfenlei,
-                       HttpServletRequest request) {
+    public Result list(@RequestParam Map<String, Object> params, ShangpinfenleiEntity shangpinfenlei) {
         EntityWrapper<ShangpinfenleiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinfenleiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinfenlei), params), params));
         return Result.ok().put("data", page);
@@ -98,7 +99,7 @@ public class ShangpinfenleiController {
      * 后端保存
      */
     @RequestMapping("/save")
-    public Result save(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
+    public Result save(@RequestBody ShangpinfenleiEntity shangpinfenlei) {
         shangpinfenlei.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
         shangpinfenleiService.insert(shangpinfenlei);
         return Result.ok();
@@ -108,7 +109,7 @@ public class ShangpinfenleiController {
      * 前端保存
      */
     @RequestMapping("/add")
-    public Result add(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
+    public Result add(@RequestBody ShangpinfenleiEntity shangpinfenlei) {
         shangpinfenlei.setId((long) (new Date().getTime() + Math.floor(Math.random() * 1000)));
         shangpinfenleiService.insert(shangpinfenlei);
         return Result.ok();
@@ -118,7 +119,7 @@ public class ShangpinfenleiController {
      * 修改
      */
     @RequestMapping("/update")
-    public Result update(@RequestBody ShangpinfenleiEntity shangpinfenlei, HttpServletRequest request) {
+    public Result update(@RequestBody ShangpinfenleiEntity shangpinfenlei) {
         shangpinfenleiService.updateById(shangpinfenlei);//全部更新
         return Result.ok();
     }
