@@ -39,7 +39,7 @@ public class ShangpinxinxiController {
      * 后端列表
      */
     @RequestMapping("/page")
-    public Result page(@RequestParam Map<String, Object> params, @RequestBody ShangpinxinxiEntity shangpinxinxi) {
+    public Result page(ShangpinxinxiEntity shangpinxinxi, @RequestParam Map<String, Object> params) {
 
         EntityWrapper<ShangpinxinxiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinxinxiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinxinxi), params), params));
@@ -108,7 +108,7 @@ public class ShangpinxinxiController {
      * 后端保存
      */
     @RequestMapping("/save")
-    public Result save(@RequestBody ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request) {
+    public Result save(@RequestBody ShangpinxinxiEntity shangpinxinxi) {
         shangpinxinxi.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
         shangpinxinxiService.insert(shangpinxinxi);
         return Result.ok();
@@ -128,7 +128,7 @@ public class ShangpinxinxiController {
      * 修改
      */
     @RequestMapping("/update")
-    public Result update(@RequestBody ShangpinxinxiEntity shangpinxinxi, HttpServletRequest request) {
+    public Result update(@RequestBody ShangpinxinxiEntity shangpinxinxi) {
         shangpinxinxiService.updateById(shangpinxinxi);//全部更新
         return Result.ok();
     }
@@ -140,6 +140,19 @@ public class ShangpinxinxiController {
     @RequestMapping("/delete")
     public Result delete(@RequestBody Long[] ids) {
         shangpinxinxiService.deleteBatchIds(Arrays.asList(ids));
+        return Result.ok();
+    }
+
+    /**
+     * 根据id删除
+     * @param id 商品id
+     * @return null
+     */
+    @RequestMapping("/deleteByID")
+    public Result deleteByID(@RequestParam Long id) {
+        ArrayList<Long> ids = new ArrayList<>();
+        ids.add(id);
+        shangpinxinxiService.deleteBatchIds(ids);
         return Result.ok();
     }
 
