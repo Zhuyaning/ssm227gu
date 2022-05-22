@@ -27,15 +27,19 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("/orders")
 public class OrdersController {
-    @Autowired
+
     private OrdersService ordersService;
 
+    @Autowired
+    public OrdersController(OrdersService ordersService) {
+        this.ordersService = ordersService;
+    }
 
     /**
      * 后端列表
      */
     @RequestMapping("/page")
-    public Result page(@RequestParam Map<String, Object> params, OrdersEntity orders,
+    public Result page(OrdersEntity orders, @RequestParam Map<String, Object> params,
                        HttpServletRequest request) {
         if (!request.getSession().getAttribute("role").toString().equals("管理员")) {
             orders.setUserid((Long) request.getSession().getAttribute("userId"));
@@ -50,8 +54,7 @@ public class OrdersController {
      * 前端列表
      */
     @RequestMapping("/list")
-    public Result list(@RequestParam Map<String, Object> params, OrdersEntity orders,
-                       HttpServletRequest request) {
+    public Result list(OrdersEntity orders, @RequestParam Map<String, Object> params) {
         EntityWrapper<OrdersEntity> ew = new EntityWrapper<>();
         PageUtils page = ordersService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, orders), params), params));
         return Result.ok().put("data", page);

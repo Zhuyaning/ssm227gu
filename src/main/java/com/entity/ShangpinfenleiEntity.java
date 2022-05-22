@@ -3,11 +3,9 @@ package com.entity;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 
@@ -18,10 +16,6 @@ import java.util.Date;
 @TableName("shangpinfenlei")
 public class ShangpinfenleiEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-
-
-
-
 
 
     /**

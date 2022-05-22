@@ -39,7 +39,7 @@ public class ShangpinfenleiController {
      * 后端列表
      */
     @RequestMapping("/page")
-    public Result page(@RequestParam Map<String, Object> params, ShangpinfenleiEntity shangpinfenlei) {
+    public Result page(ShangpinfenleiEntity shangpinfenlei, @RequestParam Map<String, Object> params) {
         EntityWrapper<ShangpinfenleiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinfenleiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinfenlei), params), params));
         return Result.ok().put("data", page);
@@ -49,7 +49,7 @@ public class ShangpinfenleiController {
      * 前端列表
      */
     @RequestMapping("/list")
-    public Result list(@RequestParam Map<String, Object> params, ShangpinfenleiEntity shangpinfenlei) {
+    public Result list(ShangpinfenleiEntity shangpinfenlei, @RequestParam Map<String, Object> params) {
         EntityWrapper<ShangpinfenleiEntity> ew = new EntityWrapper<>();
         PageUtils page = shangpinfenleiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinfenlei), params), params));
         return Result.ok().put("data", page);
