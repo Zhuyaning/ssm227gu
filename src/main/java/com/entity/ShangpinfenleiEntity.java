@@ -23,10 +23,10 @@ public class ShangpinfenleiEntity implements Serializable {
      */
     @TableId
     private Long id;
+
     /**
      * 商品分类
      */
-
     private String shangpinfenlei;
 
 

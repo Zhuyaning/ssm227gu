@@ -146,7 +146,7 @@ public class ShangpinxinxiController {
     /**
      * 根据id删除
      * @param id 商品id
-     * @return null
+     * @return Result.ok
      */
     @RequestMapping("/deleteByID")
     public Result deleteByID(@RequestParam Long id) {
