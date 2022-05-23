@@ -61,7 +61,7 @@ var indexNav = [
     },
 ]
 
-var adminurl = "http://localhost:8080/ssm227gu/admin/dist/index.html";
+var adminurl = "http://localhost:8081/#/login";
 
 var cartFlag = false
 
