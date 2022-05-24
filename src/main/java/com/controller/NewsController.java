@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -133,6 +130,19 @@ public class NewsController {
     @RequestMapping("/delete")
     public Result delete(@RequestBody Long[] ids) {
         newsService.deleteBatchIds(Arrays.asList(ids));
+        return Result.ok();
+    }
+
+    /**
+     * 根据id删除
+     * @param id 资讯id
+     * @return Result.ok
+     */
+    @RequestMapping("/deleteByID")
+    public Result deleteByID(@RequestParam Long id) {
+        ArrayList<Long> ids = new ArrayList<>();
+        ids.add(id);
+        newsService.deleteBatchIds(ids);
         return Result.ok();
     }
 
