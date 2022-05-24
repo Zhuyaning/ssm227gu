@@ -43,7 +43,7 @@ public class YonghuController {
      */
     @IgnoreAuth
     @RequestMapping(value = "/login")
-    public Result login(String username, String password) {
+        public Result login(String username, String password) {
         YonghuEntity user = yonghuService.selectOne(new EntityWrapper<YonghuEntity>().eq(USER_ACCOUNT, username));
         if (null == user || !user.getMima().equals(password)) {
             return Result.error("账号或密码不正确");
@@ -259,6 +259,4 @@ public class YonghuController {
         int count = yonghuService.selectCount(wrapper);
         return Result.ok().put("count", count);
     }
-
-
 }

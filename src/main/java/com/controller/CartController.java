@@ -58,8 +58,7 @@ public class CartController {
      * 前端列表
      */
     @RequestMapping("/list")
-    public Result list(@RequestParam Map<String, Object> params, CartEntity cart,
-                       HttpServletRequest request) {
+    public Result list(@RequestParam Map<String, Object> params, CartEntity cart) {
         EntityWrapper<CartEntity> ew = new EntityWrapper<>();
         PageUtils page = cartService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, cart), params), params));
         return Result.ok().put("data", page);
@@ -112,7 +111,6 @@ public class CartController {
     public Result save(@RequestBody CartEntity cart, HttpServletRequest request) {
         cart.setId((long) (new Date().getTime() + Math.floor(Math.random() * 1000)));
         cart.setUserid((Long) request.getSession().getAttribute(USER_ID));
-
         cartService.insert(cart);
         return Result.ok();
     }
@@ -121,7 +119,7 @@ public class CartController {
      * 前端保存
      */
     @RequestMapping("/add")
-    public Result add(@RequestBody CartEntity cart, HttpServletRequest request) {
+    public Result add(@RequestBody CartEntity cart) {
         cart.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
         cartService.insert(cart);
         return Result.ok();

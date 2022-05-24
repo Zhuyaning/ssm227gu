@@ -107,7 +107,6 @@ public class OrdersController {
     public Result save(@RequestBody OrdersEntity orders, HttpServletRequest request) {
         orders.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
         orders.setUserid((Long) request.getSession().getAttribute("userId"));
-
         ordersService.insert(orders);
         return Result.ok();
     }
