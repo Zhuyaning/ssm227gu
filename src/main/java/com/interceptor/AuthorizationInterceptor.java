@@ -7,7 +7,7 @@ import com.service.TokenService;
 import com.utils.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -18,7 +18,7 @@ import java.io.PrintWriter;
 /**
  * 权限(Token)验证
  */
-@Component
+@Configuration
 public class AuthorizationInterceptor implements HandlerInterceptor {
 
     public static final String LOGIN_TOKEN_KEY = "Token";
@@ -46,7 +46,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
         //从header中获取token
         String token = request.getHeader(LOGIN_TOKEN_KEY);
-        if (StringUtils.isEmpty(token)){
+        if (StringUtils.isEmpty(token)) {
             token = request.getHeader(AUTH);
         }
         /*
