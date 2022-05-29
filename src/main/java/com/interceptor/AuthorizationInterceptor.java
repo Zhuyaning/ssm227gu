@@ -39,21 +39,23 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
         IgnoreAuth annotation;
         if (handler instanceof HandlerMethod) {
+            // 拿到控制器方法上的 @IgnoreAuth注解
             annotation = ((HandlerMethod) handler).getMethodAnnotation(IgnoreAuth.class);
         } else {
             return true;
         }
-
-        //从header中获取token
-        String token = request.getHeader(LOGIN_TOKEN_KEY);
-        if (StringUtils.isEmpty(token)) {
-            token = request.getHeader(AUTH);
-        }
         /*
-         * 不需要验证权限的方法直接放过
+         *  注解不为空表示此方法不需要验证权限，
+         *  直接放过
          */
         if (annotation != null) {
             return true;
+        }
+
+        // 从header中获取token
+        String token = request.getHeader(LOGIN_TOKEN_KEY);
+        if (StringUtils.isEmpty(token)) {
+            token = request.getHeader(AUTH);
         }
 
         TokenEntity tokenEntity = null;
