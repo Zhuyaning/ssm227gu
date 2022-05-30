@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.entity.SysUserEntity;
 import com.entity.view.SysUserView;
-import com.service.TokenService;
 import com.service.SysUserService;
+import com.service.TokenService;
 import com.utils.MPUtil;
 import com.utils.PageUtils;
 import com.utils.Result;
@@ -31,24 +31,29 @@ import java.util.Map;
 public class SysUserController {
 
     private static final String USER_ACCOUNT = "yonghuzhanghao";
+    private static final String USER = "yonghu";
 
-    @Autowired
     private SysUserService sysUserService;
 
-    @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    public SysUserController(SysUserService sysUserService, TokenService tokenService) {
+        this.sysUserService = sysUserService;
+        this.tokenService = tokenService;
+    }
+
     /**
-     * 登录
+     * 用户登录
      */
     @IgnoreAuth
     @RequestMapping(value = "/login")
-        public Result login(String username, String password) {
+    public Result login(String username, String password) {
         SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, username));
         if (null == user || !user.getMima().equals(password)) {
             return Result.error("账号或密码不正确");
         }
-        String token = tokenService.generateToken(user.getId(), username, "yonghu", "用户");
+        String token = tokenService.generateToken(user.getId(), username, USER, "用户");
         return Result.ok().put("token", token);
     }
 
@@ -58,7 +63,7 @@ public class SysUserController {
     @IgnoreAuth
     @RequestMapping("/register")
     public Result register(@RequestBody SysUserEntity yonghu) {
-        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq("yonghuzhanghao", yonghu.getYonghuzhanghao()));
+        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, yonghu.getYonghuzhanghao()));
         if (user != null) {
             return Result.error("注册用户已存在");
         }
@@ -93,7 +98,7 @@ public class SysUserController {
     @IgnoreAuth
     @RequestMapping(value = "/resetPass")
     public Result resetPass(String username) {
-        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq("yonghuzhanghao", username));
+        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, username));
         if (user == null) {
             return Result.error("账号不存在");
         }
@@ -107,8 +112,7 @@ public class SysUserController {
      * 后端列表
      */
     @RequestMapping("/page")
-    public Result page(@RequestParam Map<String, Object> params, SysUserEntity yonghu,
-                       HttpServletRequest request) {
+    public Result page(@RequestParam Map<String, Object> params, SysUserEntity yonghu) {
 
         EntityWrapper<SysUserEntity> ew = new EntityWrapper<>();
         PageUtils page = sysUserService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, yonghu), params), params));
@@ -119,8 +123,7 @@ public class SysUserController {
      * 前端列表
      */
     @RequestMapping("/list")
-    public Result list(@RequestParam Map<String, Object> params, SysUserEntity yonghu,
-                       HttpServletRequest request) {
+    public Result list(@RequestParam Map<String, Object> params, SysUserEntity yonghu) {
         EntityWrapper<SysUserEntity> ew = new EntityWrapper<>();
         PageUtils page = sysUserService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, yonghu), params), params));
         return Result.ok().put("data", page);
@@ -132,7 +135,7 @@ public class SysUserController {
     @RequestMapping("/lists")
     public Result list(SysUserEntity yonghu) {
         EntityWrapper<SysUserEntity> ew = new EntityWrapper<>();
-        ew.allEq(MPUtil.allEQMapPre(yonghu, "yonghu"));
+        ew.allEq(MPUtil.allEQMapPre(yonghu, USER));
         return Result.ok().put("data", sysUserService.selectListView(ew));
     }
 
@@ -142,7 +145,7 @@ public class SysUserController {
     @RequestMapping("/query")
     public Result query(SysUserEntity yonghu) {
         EntityWrapper<SysUserEntity> ew = new EntityWrapper<>();
-        ew.allEq(MPUtil.allEQMapPre(yonghu, "yonghu"));
+        ew.allEq(MPUtil.allEQMapPre(yonghu, USER));
         SysUserView yonghuView = sysUserService.selectView(ew);
         return Result.ok("查询用户成功").put("data", yonghuView);
     }
@@ -170,9 +173,9 @@ public class SysUserController {
      * 后端保存
      */
     @RequestMapping("/save")
-    public Result save(@RequestBody SysUserEntity yonghu, HttpServletRequest request) {
+    public Result save(@RequestBody SysUserEntity yonghu) {
         yonghu.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq("yonghuzhanghao", yonghu.getYonghuzhanghao()));
+        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, yonghu.getYonghuzhanghao()));
         if (user != null) {
             return Result.error("用户已存在");
         }
@@ -186,9 +189,9 @@ public class SysUserController {
      * 前端保存
      */
     @RequestMapping("/add")
-    public Result add(@RequestBody SysUserEntity yonghu, HttpServletRequest request) {
+    public Result add(@RequestBody SysUserEntity yonghu) {
         yonghu.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq("yonghuzhanghao", yonghu.getYonghuzhanghao()));
+        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, yonghu.getYonghuzhanghao()));
         if (user != null) {
             return Result.error("用户已存在");
         }
@@ -202,7 +205,7 @@ public class SysUserController {
      * 修改
      */
     @RequestMapping("/update")
-    public Result update(@RequestBody SysUserEntity yonghu, HttpServletRequest request) {
+    public Result update(@RequestBody SysUserEntity yonghu) {
         sysUserService.updateById(yonghu);//全部更新
         return Result.ok();
     }
@@ -221,7 +224,7 @@ public class SysUserController {
      * 提醒接口
      */
     @RequestMapping("/remind/{columnName}/{type}")
-    public Result remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request,
+    public Result remindCount(@PathVariable("columnName") String columnName,
                               @PathVariable("type") String type, @RequestParam Map<String, Object> map) {
         map.put("column", columnName);
         map.put("type", type);
