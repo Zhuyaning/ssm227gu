@@ -12,15 +12,10 @@ import java.util.Date;
 /**
  * 商品信息评论表
  * 数据库通用操作实体类（普通增删改查）
- *
  */
 @TableName("discussshangpinxinxi")
 public class ProductReviewEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-
-
-
-
 
 
     /**
