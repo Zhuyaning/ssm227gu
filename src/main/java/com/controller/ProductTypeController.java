@@ -36,9 +36,9 @@ public class ProductTypeController {
      * 后端列表
      */
     @RequestMapping("/page")
-    public Result page(ProductTypeEntity shangpinfenlei, @RequestParam Map<String, Object> params) {
+    public Result page(ProductTypeEntity productType, @RequestParam Map<String, Object> params) {
         EntityWrapper<ProductTypeEntity> ew = new EntityWrapper<>();
-        PageUtils page = productTypeService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinfenlei), params), params));
+        PageUtils page = productTypeService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, productType), params), params));
         return Result.ok().put("data", page);
     }
 
@@ -46,9 +46,9 @@ public class ProductTypeController {
      * 前端列表
      */
     @RequestMapping("/list")
-    public Result list(ProductTypeEntity shangpinfenlei, @RequestParam Map<String, Object> params) {
+    public Result list(ProductTypeEntity productType, @RequestParam Map<String, Object> params) {
         EntityWrapper<ProductTypeEntity> ew = new EntityWrapper<>();
-        PageUtils page = productTypeService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinfenlei), params), params));
+        PageUtils page = productTypeService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, productType), params), params));
         return Result.ok().put("data", page);
     }
 
@@ -56,9 +56,9 @@ public class ProductTypeController {
      * 列表
      */
     @RequestMapping("/lists")
-    public Result list(ProductTypeEntity shangpinfenlei) {
+    public Result list(ProductTypeEntity productType) {
         EntityWrapper<ProductTypeEntity> ew = new EntityWrapper<>();
-        ew.allEq(MPUtil.allEQMapPre(shangpinfenlei, "shangpinfenlei"));
+        ew.allEq(MPUtil.allEQMapPre(productType, "shangpinfenlei"));
         return Result.ok().put("data", productTypeService.selectListView(ew));
     }
 
@@ -66,9 +66,9 @@ public class ProductTypeController {
      * 查询
      */
     @RequestMapping("/query")
-    public Result query(ProductTypeEntity shangpinfenlei) {
+    public Result query(ProductTypeEntity productType) {
         EntityWrapper<ProductTypeEntity> ew = new EntityWrapper<>();
-        ew.allEq(MPUtil.allEQMapPre(shangpinfenlei, "shangpinfenlei"));
+        ew.allEq(MPUtil.allEQMapPre(productType, "shangpinfenlei"));
         ProductTypeView shangpinfenleiView = productTypeService.selectView(ew);
         return Result.ok("查询商品分类成功").put("data", shangpinfenleiView);
     }
@@ -78,8 +78,8 @@ public class ProductTypeController {
      */
     @RequestMapping("/info/{id}")
     public Result info(@PathVariable("id") Long id) {
-        ProductTypeEntity shangpinfenlei = productTypeService.selectById(id);
-        return Result.ok().put("data", shangpinfenlei);
+        ProductTypeEntity type = productTypeService.selectById(id);
+        return Result.ok().put("data", type);
     }
 
     /**
@@ -87,8 +87,8 @@ public class ProductTypeController {
      */
     @RequestMapping("/detail/{id}")
     public Result detail(@PathVariable("id") Long id) {
-        ProductTypeEntity shangpinfenlei = productTypeService.selectById(id);
-        return Result.ok().put("data", shangpinfenlei);
+        ProductTypeEntity productType = productTypeService.selectById(id);
+        return Result.ok().put("data", productType);
     }
 
 
@@ -96,9 +96,9 @@ public class ProductTypeController {
      * 后端保存
      */
     @RequestMapping("/save")
-    public Result save(@RequestBody ProductTypeEntity shangpinfenlei) {
-        shangpinfenlei.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        productTypeService.insert(shangpinfenlei);
+    public Result save(@RequestBody ProductTypeEntity productType) {
+        productType.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
+        productTypeService.insert(productType);
         return Result.ok();
     }
 
@@ -106,9 +106,9 @@ public class ProductTypeController {
      * 前端保存
      */
     @RequestMapping("/add")
-    public Result add(@RequestBody ProductTypeEntity shangpinfenlei) {
-        shangpinfenlei.setId((long) (new Date().getTime() + Math.floor(Math.random() * 1000)));
-        productTypeService.insert(shangpinfenlei);
+    public Result add(@RequestBody ProductTypeEntity productType) {
+        productType.setId((long) (new Date().getTime() + Math.floor(Math.random() * 1000)));
+        productTypeService.insert(productType);
         return Result.ok();
     }
 
@@ -116,8 +116,8 @@ public class ProductTypeController {
      * 修改
      */
     @RequestMapping("/update")
-    public Result update(@RequestBody ProductTypeEntity shangpinfenlei) {
-        productTypeService.updateById(shangpinfenlei);//全部更新
+    public Result update(@RequestBody ProductTypeEntity productType) {
+        productTypeService.updateById(productType);//全部更新
         return Result.ok();
     }
 
@@ -148,7 +148,7 @@ public class ProductTypeController {
      * 提醒接口
      */
     @RequestMapping("/remind/{columnName}/{type}")
-    public Result remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request,
+    public Result remindCount(@PathVariable("columnName") String columnName,
                               @PathVariable("type") String type, @RequestParam Map<String, Object> map) {
         map.put("column", columnName);
         map.put("type", type);

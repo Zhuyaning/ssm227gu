@@ -95,7 +95,7 @@ public class NewsController {
 
 
     /**
-     * 后端保存
+     * 资讯新增
      */
     @RequestMapping("/save")
     public Result save(@RequestBody NewsEntity news) {

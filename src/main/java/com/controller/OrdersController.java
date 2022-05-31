@@ -112,10 +112,10 @@ public class OrdersController {
     }
 
     /**
-     * 前端保存
+     * 生成订单
      */
     @RequestMapping("/add")
-    public Result add(@RequestBody OrdersEntity orders, HttpServletRequest request) {
+    public Result add(@RequestBody OrdersEntity orders) {
         orders.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
         ordersService.insert(orders);
         return Result.ok();

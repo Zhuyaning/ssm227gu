@@ -62,14 +62,14 @@ public class SysUserController {
      */
     @IgnoreAuth
     @RequestMapping("/register")
-    public Result register(@RequestBody SysUserEntity yonghu) {
-        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, yonghu.getYonghuzhanghao()));
+    public Result register(@RequestBody SysUserEntity sysUser) {
+        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, sysUser.getYonghuzhanghao()));
         if (user != null) {
             return Result.error("注册用户已存在");
         }
         Long uId = new Date().getTime();
-        yonghu.setId(uId);
-        sysUserService.insert(yonghu);
+        sysUser.setId(uId);
+        sysUserService.insert(sysUser);
         return Result.ok();
     }
 
@@ -112,10 +112,10 @@ public class SysUserController {
      * 后端列表
      */
     @RequestMapping("/page")
-    public Result page(@RequestParam Map<String, Object> params, SysUserEntity yonghu) {
+    public Result page(@RequestParam Map<String, Object> params, SysUserEntity sysUser) {
 
         EntityWrapper<SysUserEntity> ew = new EntityWrapper<>();
-        PageUtils page = sysUserService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, yonghu), params), params));
+        PageUtils page = sysUserService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, sysUser), params), params));
         return Result.ok().put("data", page);
     }
 
@@ -123,9 +123,9 @@ public class SysUserController {
      * 前端列表
      */
     @RequestMapping("/list")
-    public Result list(@RequestParam Map<String, Object> params, SysUserEntity yonghu) {
+    public Result list(@RequestParam Map<String, Object> params, SysUserEntity sysUser) {
         EntityWrapper<SysUserEntity> ew = new EntityWrapper<>();
-        PageUtils page = sysUserService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, yonghu), params), params));
+        PageUtils page = sysUserService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, sysUser), params), params));
         return Result.ok().put("data", page);
     }
 
@@ -133,9 +133,9 @@ public class SysUserController {
      * 列表
      */
     @RequestMapping("/lists")
-    public Result list(SysUserEntity yonghu) {
+    public Result list(SysUserEntity sysUser) {
         EntityWrapper<SysUserEntity> ew = new EntityWrapper<>();
-        ew.allEq(MPUtil.allEQMapPre(yonghu, USER));
+        ew.allEq(MPUtil.allEQMapPre(sysUser, USER));
         return Result.ok().put("data", sysUserService.selectListView(ew));
     }
 
@@ -143,9 +143,9 @@ public class SysUserController {
      * 查询
      */
     @RequestMapping("/query")
-    public Result query(SysUserEntity yonghu) {
+    public Result query(SysUserEntity sysUser) {
         EntityWrapper<SysUserEntity> ew = new EntityWrapper<>();
-        ew.allEq(MPUtil.allEQMapPre(yonghu, USER));
+        ew.allEq(MPUtil.allEQMapPre(sysUser, USER));
         SysUserView yonghuView = sysUserService.selectView(ew);
         return Result.ok("查询用户成功").put("data", yonghuView);
     }
@@ -173,15 +173,15 @@ public class SysUserController {
      * 后端保存
      */
     @RequestMapping("/save")
-    public Result save(@RequestBody SysUserEntity yonghu) {
-        yonghu.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, yonghu.getYonghuzhanghao()));
+    public Result save(@RequestBody SysUserEntity sysUser) {
+        sysUser.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
+        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, sysUser.getYonghuzhanghao()));
         if (user != null) {
             return Result.error("用户已存在");
         }
 
-        yonghu.setId(new Date().getTime());
-        sysUserService.insert(yonghu);
+        sysUser.setId(new Date().getTime());
+        sysUserService.insert(sysUser);
         return Result.ok();
     }
 
@@ -189,15 +189,15 @@ public class SysUserController {
      * 前端保存
      */
     @RequestMapping("/add")
-    public Result add(@RequestBody SysUserEntity yonghu) {
-        yonghu.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, yonghu.getYonghuzhanghao()));
+    public Result add(@RequestBody SysUserEntity sysUser) {
+        sysUser.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
+        SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, sysUser.getYonghuzhanghao()));
         if (user != null) {
             return Result.error("用户已存在");
         }
 
-        yonghu.setId(new Date().getTime());
-        sysUserService.insert(yonghu);
+        sysUser.setId(new Date().getTime());
+        sysUserService.insert(sysUser);
         return Result.ok();
     }
 
@@ -205,8 +205,8 @@ public class SysUserController {
      * 修改
      */
     @RequestMapping("/update")
-    public Result update(@RequestBody SysUserEntity yonghu) {
-        sysUserService.updateById(yonghu);//全部更新
+    public Result update(@RequestBody SysUserEntity sysUser) {
+        sysUserService.updateById(sysUser);//全部更新
         return Result.ok();
     }
 

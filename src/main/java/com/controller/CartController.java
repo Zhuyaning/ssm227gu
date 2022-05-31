@@ -105,7 +105,7 @@ public class CartController {
 
 
     /**
-     * 后端保存
+     * 商品加入购物车
      */
     @RequestMapping("/save")
     public Result save(@RequestBody CartEntity cart, HttpServletRequest request) {

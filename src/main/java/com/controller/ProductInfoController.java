@@ -39,10 +39,10 @@ public class ProductInfoController {
      * 后端列表
      */
     @RequestMapping("/page")
-    public Result page(ProductInfoEntity shangpinxinxi, @RequestParam Map<String, Object> params) {
+    public Result page(ProductInfoEntity productInfo, @RequestParam Map<String, Object> params) {
 
         EntityWrapper<ProductInfoEntity> ew = new EntityWrapper<>();
-        PageUtils page = productInfoService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinxinxi), params), params));
+        PageUtils page = productInfoService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, productInfo), params), params));
         return Result.ok().put("productList", page);
     }
 
@@ -51,9 +51,9 @@ public class ProductInfoController {
      */
     @IgnoreAuth
     @RequestMapping("/list")
-    public Result list(@RequestParam Map<String, Object> params, ProductInfoEntity shangpinxinxi) {
+    public Result list(@RequestParam Map<String, Object> params, ProductInfoEntity productInfo) {
         EntityWrapper<ProductInfoEntity> ew = new EntityWrapper<>();
-        PageUtils page = productInfoService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, shangpinxinxi), params), params));
+        PageUtils page = productInfoService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, productInfo), params), params));
         return Result.ok().put("data", page);
     }
 
@@ -61,9 +61,9 @@ public class ProductInfoController {
      * 列表
      */
     @RequestMapping("/lists")
-    public Result list(ProductInfoEntity shangpinxinxi) {
+    public Result list(ProductInfoEntity productInfo) {
         EntityWrapper<ProductInfoEntity> ew = new EntityWrapper<>();
-        ew.allEq(MPUtil.allEQMapPre(shangpinxinxi, "shangpinxinxi"));
+        ew.allEq(MPUtil.allEQMapPre(productInfo, "shangpinxinxi"));
         return Result.ok().put("data", productInfoService.selectListView(ew));
     }
 
@@ -71,9 +71,9 @@ public class ProductInfoController {
      * 查询
      */
     @RequestMapping("/query")
-    public Result query(ProductInfoEntity shangpinxinxi) {
+    public Result query(ProductInfoEntity productInfo) {
         EntityWrapper<ProductInfoEntity> ew = new EntityWrapper<>();
-        ew.allEq(MPUtil.allEQMapPre(shangpinxinxi, "shangpinxinxi"));
+        ew.allEq(MPUtil.allEQMapPre(productInfo, "shangpinxinxi"));
         ProductInfoView shangpinxinxiView = productInfoService.selectView(ew);
         return Result.ok("查询商品信息成功").put("data", shangpinxinxiView);
     }
@@ -83,11 +83,11 @@ public class ProductInfoController {
      */
     @RequestMapping("/info/{id}")
     public Result info(@PathVariable("id") Long id) {
-        ProductInfoEntity shangpinxinxi = productInfoService.selectById(id);
-        shangpinxinxi.setClicknum(shangpinxinxi.getClicknum() + 1);
-        shangpinxinxi.setClicktime(new Date());
-        productInfoService.updateById(shangpinxinxi);
-        return Result.ok().put("data", shangpinxinxi);
+        ProductInfoEntity productInfo = productInfoService.selectById(id);
+        productInfo.setClicknum(productInfo.getClicknum() + 1);
+        productInfo.setClicktime(new Date());
+        productInfoService.updateById(productInfo);
+        return Result.ok().put("data", productInfo);
     }
 
     /**
@@ -96,21 +96,21 @@ public class ProductInfoController {
     @IgnoreAuth
     @RequestMapping("/detail/{id}")
     public Result detail(@PathVariable("id") Long id) {
-        ProductInfoEntity shangpinxinxi = productInfoService.selectById(id);
-        shangpinxinxi.setClicknum(shangpinxinxi.getClicknum() + 1);
-        shangpinxinxi.setClicktime(new Date());
-        productInfoService.updateById(shangpinxinxi);
-        return Result.ok().put("data", shangpinxinxi);
+        ProductInfoEntity productInfo = productInfoService.selectById(id);
+        productInfo.setClicknum(productInfo.getClicknum() + 1);
+        productInfo.setClicktime(new Date());
+        productInfoService.updateById(productInfo);
+        return Result.ok().put("data", productInfo);
     }
 
 
     /**
-     * 后端保存
+     * 商品上架
      */
     @RequestMapping("/save")
-    public Result save(@RequestBody ProductInfoEntity shangpinxinxi) {
-        shangpinxinxi.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        productInfoService.insert(shangpinxinxi);
+    public Result save(@RequestBody ProductInfoEntity product) {
+        product.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
+        productInfoService.insert(product);
         return Result.ok();
     }
 
@@ -118,9 +118,9 @@ public class ProductInfoController {
      * 前端保存
      */
     @RequestMapping("/add")
-    public Result add(@RequestBody ProductInfoEntity shangpinxinxi) {
-        shangpinxinxi.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
-        productInfoService.insert(shangpinxinxi);
+    public Result add(@RequestBody ProductInfoEntity productInfo) {
+        productInfo.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
+        productInfoService.insert(productInfo);
         return Result.ok();
     }
 
@@ -128,8 +128,8 @@ public class ProductInfoController {
      * 修改
      */
     @RequestMapping("/update")
-    public Result update(@RequestBody ProductInfoEntity shangpinxinxi) {
-        productInfoService.updateById(shangpinxinxi);//全部更新
+    public Result update(@RequestBody ProductInfoEntity productInfo) {
+        productInfoService.updateById(productInfo);//全部更新
         return Result.ok();
     }
 
@@ -160,7 +160,7 @@ public class ProductInfoController {
      * 提醒接口
      */
     @RequestMapping("/remind/{columnName}/{type}")
-    public Result remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request,
+    public Result remindCount(@PathVariable("columnName") String columnName,
                               @PathVariable("type") String type, @RequestParam Map<String, Object> map) {
         map.put("column", columnName);
         map.put("type", type);
