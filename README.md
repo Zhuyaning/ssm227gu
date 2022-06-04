@@ -3,3 +3,4 @@ game mall
 
 
 https://github.com/Zhuyaning/vue-element-admin/tree/master
+please use branch dev.
