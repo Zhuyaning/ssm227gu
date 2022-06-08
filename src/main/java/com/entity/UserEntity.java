@@ -3,6 +3,7 @@ package com.entity;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.utils.Md5Util;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -47,7 +48,7 @@ public class UserEntity implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Md5Util.getMd5String(password);
     }
 
     public String getRole() {

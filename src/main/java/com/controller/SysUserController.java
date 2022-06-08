@@ -8,12 +8,14 @@ import com.entity.view.SysUserView;
 import com.service.SysUserService;
 import com.service.TokenService;
 import com.utils.MPUtil;
+import com.utils.Md5Util;
 import com.utils.PageUtils;
 import com.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -33,9 +35,9 @@ public class SysUserController {
     private static final String USER_ACCOUNT = "yonghuzhanghao";
     private static final String USER = "yonghu";
 
-    private SysUserService sysUserService;
+    private final SysUserService sysUserService;
 
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
     @Autowired
     public SysUserController(SysUserService sysUserService, TokenService tokenService) {
@@ -48,9 +50,9 @@ public class SysUserController {
      */
     @IgnoreAuth
     @RequestMapping(value = "/login")
-    public Result login(String username, String password) {
+    public Result login(String username, String password) throws NoSuchAlgorithmException {
         SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, username));
-        if (null == user || !user.getMima().equals(password)) {
+        if (null == user || !user.getMima().equals(Md5Util.getMd5String(password))) {
             return Result.error("账号或密码不正确");
         }
         String token = tokenService.generateToken(user.getId(), username, USER, "用户");

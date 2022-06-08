@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.service.IService;
 import com.entity.TokenEntity;
 import com.utils.PageUtils;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public interface TokenService extends IService<TokenEntity> {
 
     PageUtils queryPage(Map<String, Object> params, Wrapper<TokenEntity> wrapper);
 
-    String generateToken(Long userid, String username, String tableName, String role);
+    String generateToken(Long userid, String username, String tableName, String role) throws NoSuchAlgorithmException;
 
     TokenEntity getTokenEntity(String token);
 }

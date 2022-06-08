@@ -7,12 +7,14 @@ import com.entity.UserEntity;
 import com.service.TokenService;
 import com.service.UserService;
 import com.utils.MPUtil;
+import com.utils.Md5Util;
 import com.utils.PageUtils;
 import com.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -35,9 +37,9 @@ public class UserController {
      */
     @IgnoreAuth
     @PostMapping(value = "/login")
-    public Result login(@RequestBody UserEntity userEntity) {
+    public Result login(@RequestBody UserEntity userEntity) throws NoSuchAlgorithmException {
         UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq("username", userEntity.getUsername()));
-        if (user == null || !user.getPassword().equals(userEntity.getPassword())) {
+        if (user == null || !user.getPassword().equals(Md5Util.getMd5String(userEntity.getPassword()))) {
             return Result.error("账号或密码不正确");
         }
         String token = tokenService.generateToken(user.getId(), userEntity.getUsername(), "users", user.getRole());

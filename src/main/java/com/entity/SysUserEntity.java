@@ -3,6 +3,7 @@ package com.entity;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.utils.Md5Util;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -118,7 +119,7 @@ public class SysUserEntity implements Serializable {
      * 设置：密码
      */
     public void setMima(String mima) {
-        this.mima = mima;
+        this.mima = Md5Util.getMd5String(mima);
     }
 
     /**

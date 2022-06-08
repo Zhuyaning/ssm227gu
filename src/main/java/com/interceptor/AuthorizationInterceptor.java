@@ -24,8 +24,13 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     public static final String LOGIN_TOKEN_KEY = "Token";
     public static final String AUTH = "Authorization";
 
+
+    private final TokenService tokenService;
+
     @Autowired
-    private TokenService tokenService;
+    public AuthorizationInterceptor(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
