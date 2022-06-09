@@ -13,26 +13,24 @@ import java.util.Map;
  * Mybatis-Plus工具类
  */
 public class MPUtil {
+
     public static final char UNDERLINE = '_';
 
 
     //mybatis plus allEQ 表达式转换
-    public static Map allEQMapPre(Object bean, String pre) {
+    public static Map<String,Object> allEQMapPre(Object bean, String pre) {
         Map<String, Object> map = BeanUtil.beanToMap(bean);
         return camelToUnderlineMap(map, pre);
     }
 
     //mybatis plus allEQ 表达式转换
-    public static Map allEQMap(Object bean) {
+    public static Map<String,Object> allEQMap(Object bean) {
         Map<String, Object> map = BeanUtil.beanToMap(bean);
         return camelToUnderlineMap(map, "");
     }
 
-    public static Wrapper allLikePre(Wrapper wrapper, Object bean, String pre) {
-        Map<String, Object> map = BeanUtil.beanToMap(bean);
-        Map result = camelToUnderlineMap(map, pre);
-
-        return genLike(wrapper, result);
+    public static  Wrapper allLikePre(Wrapper<Object> wrapper, Object bean, String pre) {
+        return genLike(wrapper, camelToUnderlineMap(BeanUtil.beanToMap(bean), pre));
     }
 
     public static Wrapper allLike(Wrapper wrapper, Object bean) {
@@ -134,38 +132,33 @@ public class MPUtil {
 
     /**
      * 驼峰格式字符串转换为下划线格式字符串
-     *
-     * @param param
-     * @return
      */
     public static String camelToUnderline(String param) {
-        if (param == null || "".equals(param.trim())) {
+        if (StringUtils.isEmpty(param.trim())) {
             return "";
         }
-        int len = param.length();
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++) {
+        int paramLength = param.length();
+        StringBuilder res = new StringBuilder(paramLength);
+        for (int i = 0; i < paramLength; i++) {
             char c = param.charAt(i);
             if (Character.isUpperCase(c)) {
-                sb.append(UNDERLINE);
-                sb.append(Character.toLowerCase(c));
+                res.append(UNDERLINE);
+                res.append(Character.toLowerCase(c));
             } else {
-                sb.append(c);
+                res.append(c);
             }
         }
-        return sb.toString();
+        return res.toString();
     }
 
     public static void main(String[] ages) {
         System.out.println(camelToUnderline("ABCddfANM"));
     }
 
-    public static Map camelToUnderlineMap(Map param, String pre) {
+    public static Map<String,Object> camelToUnderlineMap(Map<String,Object> param, String pre) {
 
-        Map<String, Object> newMap = new HashMap<String, Object>();
-        Iterator<Map.Entry<String, Object>> it = param.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, Object> entry = it.next();
+        Map<String, Object> newMap = new HashMap<>();
+        for (Map.Entry<String, Object> entry : param.entrySet()) {
             String key = entry.getKey();
             String newKey = camelToUnderline(key);
             if (pre.endsWith(".")) {
