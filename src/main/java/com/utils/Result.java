@@ -1,16 +1,18 @@
 package com.utils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 返回数据
  */
-public class Result extends HashMap<String, Object> {
-    private static final long serialVersionUID = 1L;
+public class Result extends HashMap<String, Object> implements Serializable {
+
+    private static final long serialVersionUID = 7803485589078543308L;
 
     public Result() {
-        put("code", 200);
+        this.put("code", 200);
     }
 
     public static Result error() {

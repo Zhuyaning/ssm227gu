@@ -46,7 +46,7 @@ public class UserController {
     public Result login(@RequestBody UserEntity userEntity) throws NoSuchAlgorithmException {
         UserEntity user = userService.selectOne(new EntityWrapper<UserEntity>().eq(USER_NAME, userEntity.getUsername()));
         if (user == null || !user.getPassword().equals(Md5Util.getMd5String(userEntity.getPassword()))) {
-            return Result.error("账号或密码不正确");
+            return Result.error("账号或密码不正确!");
         }
         String token = tokenService.generateToken(user.getId(), userEntity.getUsername(), "users", user.getRole());
         return Result.ok().put("token", token);
@@ -61,6 +61,7 @@ public class UserController {
         if (userService.selectOne(new EntityWrapper<UserEntity>().eq(USER_NAME, user.getUsername())) != null) {
             return Result.error("用户已存在啦。");
         }
+        user.setPassword(Md5Util.getMd5String(user.getPassword()));
         userService.insert(user);
         return Result.ok();
     }
@@ -84,7 +85,7 @@ public class UserController {
         if (user == null) {
             return Result.error("账号不存在");
         }
-        user.setPassword("123456");
+        user.setPassword(Md5Util.getMd5String("123456"));
         userService.update(user, null);
         return Result.ok("密码已重置为：123456");
     }

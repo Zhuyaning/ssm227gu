@@ -7,10 +7,7 @@ import com.entity.SysUserEntity;
 import com.entity.view.SysUserView;
 import com.service.SysUserService;
 import com.service.TokenService;
-import com.utils.MPUtil;
-import com.utils.Md5Util;
-import com.utils.PageUtils;
-import com.utils.Result;
+import com.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,7 +50,7 @@ public class SysUserController {
     public Result login(String username, String password) throws NoSuchAlgorithmException {
         SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, username));
         if (null == user || !user.getMima().equals(Md5Util.getMd5String(password))) {
-            return Result.error("账号或密码不正确");
+            return Result.error("账号或密码不正确!");
         }
         String token = tokenService.generateToken(user.getId(), username, USER, "用户");
         return Result.ok().put("token", token);
@@ -67,10 +64,10 @@ public class SysUserController {
     public Result register(@RequestBody SysUserEntity sysUser) {
         SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, sysUser.getYonghuzhanghao()));
         if (user != null) {
-            return Result.error("注册用户已存在");
+            return Result.error("注册用户已存在!");
         }
-        Long uId = new Date().getTime();
-        sysUser.setId(uId);
+        sysUser.setId(CommonUtil.getSnowFlakeString());
+        sysUser.setMima(Md5Util.getMd5String(sysUser.getMima()));
         sysUserService.insert(sysUser);
         return Result.ok();
     }
@@ -102,9 +99,9 @@ public class SysUserController {
     public Result resetPass(String username) {
         SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, username));
         if (user == null) {
-            return Result.error("账号不存在");
+            return Result.error("账号不存在!");
         }
-        user.setMima("123456");
+        user.setMima(Md5Util.getMd5String("123456"));
         sysUserService.updateById(user);
         return Result.ok("密码已重置为：123456");
     }
@@ -126,8 +123,8 @@ public class SysUserController {
      */
     @RequestMapping("/list")
     public Result list(@RequestParam Map<String, Object> params, SysUserEntity sysUser) {
-        EntityWrapper<SysUserEntity> ew = new EntityWrapper<>();
-        PageUtils page = sysUserService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, sysUser), params), params));
+        EntityWrapper<SysUserEntity> entityWrapper = new EntityWrapper<>();
+        PageUtils page = sysUserService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(entityWrapper, sysUser), params), params));
         return Result.ok().put("data", page);
     }
 
@@ -148,8 +145,8 @@ public class SysUserController {
     public Result query(SysUserEntity sysUser) {
         EntityWrapper<SysUserEntity> ew = new EntityWrapper<>();
         ew.allEq(MPUtil.allEQMapPre(sysUser, USER));
-        SysUserView yonghuView = sysUserService.selectView(ew);
-        return Result.ok("查询用户成功").put("data", yonghuView);
+        SysUserView userView = sysUserService.selectView(ew);
+        return Result.ok("查询用户成功").put("data", userView);
     }
 
     /**
@@ -157,8 +154,8 @@ public class SysUserController {
      */
     @RequestMapping("/info/{id}")
     public Result info(@PathVariable("id") Long id) {
-        SysUserEntity yonghu = sysUserService.selectById(id);
-        return Result.ok().put("data", yonghu);
+        SysUserEntity user = sysUserService.selectById(id);
+        return Result.ok().put("data", user);
     }
 
     /**
@@ -166,8 +163,8 @@ public class SysUserController {
      */
     @RequestMapping("/detail/{id}")
     public Result detail(@PathVariable("id") Long id) {
-        SysUserEntity yonghu = sysUserService.selectById(id);
-        return Result.ok().put("data", yonghu);
+        SysUserEntity sysUser = sysUserService.selectById(id);
+        return Result.ok().put("data", sysUser);
     }
 
 
@@ -176,7 +173,7 @@ public class SysUserController {
      */
     @RequestMapping("/save")
     public Result save(@RequestBody SysUserEntity sysUser) {
-        sysUser.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
+        sysUser.setId((long) (new Date().getTime() + Math.floor(Math.random() * 1000)));
         SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, sysUser.getYonghuzhanghao()));
         if (user != null) {
             return Result.error("用户已存在");
@@ -192,10 +189,10 @@ public class SysUserController {
      */
     @RequestMapping("/add")
     public Result add(@RequestBody SysUserEntity sysUser) {
-        sysUser.setId(new Date().getTime() + new Double(Math.floor(Math.random() * 1000)).longValue());
+        sysUser.setId((long) (new Date().getTime() + Math.floor(Math.random() * 1000)));
         SysUserEntity user = sysUserService.selectOne(new EntityWrapper<SysUserEntity>().eq(USER_ACCOUNT, sysUser.getYonghuzhanghao()));
         if (user != null) {
-            return Result.error("用户已存在");
+            return Result.error("用户已存在!");
         }
 
         sysUser.setId(new Date().getTime());

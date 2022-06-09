@@ -1,5 +1,7 @@
 package com.utils;
 
+import cn.hutool.core.lang.generator.SnowflakeGenerator;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
@@ -9,10 +11,12 @@ public class CommonUtil {
 
     private static final String BASE = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final SecureRandom random;
+    private static final SnowflakeGenerator snowflakeGenerator;
 
     static {
         try {
             random = SecureRandom.getInstanceStrong();
+            snowflakeGenerator = new SnowflakeGenerator();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -27,5 +31,9 @@ public class CommonUtil {
             sb.append(BASE.charAt(random.nextInt(BASE.length())));
         }
         return sb.toString();
+    }
+
+    public static synchronized long getSnowFlakeString() {
+        return snowflakeGenerator.next();
     }
 }

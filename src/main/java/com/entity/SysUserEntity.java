@@ -119,7 +119,7 @@ public class SysUserEntity implements Serializable {
      * 设置：密码
      */
     public void setMima(String mima) {
-        this.mima = Md5Util.getMd5String(mima);
+        this.mima = mima;
     }
 
     /**

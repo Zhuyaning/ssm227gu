@@ -48,7 +48,7 @@ public class UserEntity implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = Md5Util.getMd5String(password);
+        this.password = password;
     }
 
     public String getRole() {
